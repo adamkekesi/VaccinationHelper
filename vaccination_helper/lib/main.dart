@@ -8,8 +8,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:vaccination_helper/pages/home/home.dart';
 
 void main() async {
-//  await SettingsPersist.init();
-//  await AuthPersist.init();
   runApp(MyApp());
 }
 

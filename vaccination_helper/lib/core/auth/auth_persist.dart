@@ -1,4 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vaccination_helper/core/auth/actions/load_jwt_action.dart';
+import 'package:vaccination_helper/core/redux/store.dart';
+import 'package:vaccination_helper/core/settings/actions/load_settings_action.dart';
 
 class AuthPersist {
   static String get jwt {
@@ -21,6 +24,7 @@ class AuthPersist {
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
+    store.dispatch(new LoadJwtAction());
   }
 
   static Future<void> persist(String jwt, String userId) async {

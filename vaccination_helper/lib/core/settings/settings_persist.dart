@@ -1,4 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vaccination_helper/core/redux/store.dart';
+import 'package:vaccination_helper/core/settings/actions/load_settings_action.dart';
 
 class SettingsPersist {
   static String get language {
@@ -15,7 +17,10 @@ class SettingsPersist {
 
   static SharedPreferences _prefs;
 
-  static Future<void> init() {}
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+    store.dispatch(new LoadSettingsAction());
+  }
 
   static Future<void> setLanguage(String language) async {
     await _prefs.setString("language", language);

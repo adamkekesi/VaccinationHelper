@@ -20,8 +20,12 @@ abstract class AuthState implements Built<AuthState, AuthStateBuilder> {
   }
 
   factory AuthState.initial() {
+    return new AuthState((b) {});
+  }
+
+  factory AuthState.withJwt(String jwt) {
     return new AuthState((b) {
-      b.jwt = AuthPersist.jwt;
+      b.jwt = jwt;
     });
   }
 

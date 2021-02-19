@@ -16,7 +16,7 @@ abstract class SettingsState
 
   factory SettingsState.initial() {
     return new SettingsState((b) {
-      b.language = SettingsPersist.language;
+      b.language = "en";
     });
   }
 
