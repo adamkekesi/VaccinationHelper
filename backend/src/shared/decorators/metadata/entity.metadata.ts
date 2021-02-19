@@ -1,1 +1,3 @@
-export default class EntityMetadata {}
+export default class EntityMetadata {
+  public storagePrefix: string;
+}

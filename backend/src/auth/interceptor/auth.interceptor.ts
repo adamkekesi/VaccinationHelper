@@ -63,9 +63,6 @@ export class AuthInterceptor implements NestInterceptor {
       if (!user) {
         throw new Unauthorized();
       }
-      if (!user.verified) {
-        throw new UserNotVerified();
-      }
       res.locals.authenticatedUser = new AuthenticatedUser(user, authToken);
       return next.handle();
     } catch (e) {

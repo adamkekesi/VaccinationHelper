@@ -9,7 +9,6 @@ import { AppController } from "./app.controller";
 import { AuthInterceptor } from "./auth/interceptor/auth.interceptor";
 import { UnhandledExceptionFilter } from "./shared/exception-filters/unhandled-exception.filter";
 import { JwtModule } from "./jwt/jwt.module";
-import { CaptchaModule } from "./captcha/captcha.module";
 import ErrorHandler from "./shared/handlers/error.handler";
 import { DatabaseModule } from "./database/database.module";
 import { RoleModule } from "./role/role.module";
@@ -19,17 +18,22 @@ import { EmailModule } from "./email/email.module";
 import { CqrsModule } from "@nestjs/cqrs";
 import { DatabaseService } from "./database/database.service";
 import { EmailService } from "./email/email.service";
+import { PatientModule } from "./patient/patient.module";
+import { DoctorModule } from "./doctor/doctor.module";
+import { StorageModule } from "./storage/storage.module";
 
 @Module({
   imports: [
     JwtModule,
-    CaptchaModule,
     DatabaseModule,
     RoleModule,
     AuthModule,
     UserModule,
     EmailModule,
     CqrsModule,
+    PatientModule,
+    DoctorModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [
