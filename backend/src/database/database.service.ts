@@ -13,9 +13,6 @@ import { Constructable } from "src/types";
 import ServiceUnavailable from "src/shared/exceptions/service-unavailable.exception";
 import { dbConfig } from "src/database/database.config";
 import ErrorEvent from "src/shared/events/error.event";
-import RoleEntity from "src/role/role.entity";
-import Resource from "src/role/models/resource.model";
-import Operation from "src/role/models/operation.model";
 
 @Injectable()
 export class DatabaseService {
@@ -30,13 +27,6 @@ export class DatabaseService {
       throw new ServiceUnavailable();
     }
     return getRepository<T>(entity);
-  }
-
-  public async getCustomRepository<T>(repository: Constructable<T>) {
-    if (!this.connection?.isConnected) {
-      throw new ServiceUnavailable();
-    }
-    return getManager().getCustomRepository(repository);
   }
 
   public async startConnecting() {

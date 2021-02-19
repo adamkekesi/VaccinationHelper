@@ -2,6 +2,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/auth/state/auth_state.dart';
 import 'package:vaccination_helper/core/auth/responses/login_response.dart';
+import 'package:vaccination_helper/core/auth/state/doctor_register_state.dart';
 import 'package:vaccination_helper/core/auth/state/login_state.dart';
 import 'package:vaccination_helper/core/settings/state/settings_state.dart';
 
@@ -15,6 +16,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   LoginState get jwtloginState;
 
   SettingsState get settingsState;
+
+  DoctorRegisterState get doctorRegisterState;
 
   bool get isAppLoaded;
 
@@ -49,6 +52,12 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   AppState changeSettingsState(SettingsState state) {
     return this.rebuild((b) {
       b.settingsState.replace(state);
+    });
+  }
+
+  AppState changeDoctorRegisterState(DoctorRegisterState state) {
+    return this.rebuild((b) {
+      b.doctorRegisterState.replace(state);
     });
   }
 

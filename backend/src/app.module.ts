@@ -14,10 +14,8 @@ import { DatabaseModule } from "./database/database.module";
 import { RoleModule } from "./role/role.module";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
-import { EmailModule } from "./email/email.module";
 import { CqrsModule } from "@nestjs/cqrs";
 import { DatabaseService } from "./database/database.service";
-import { EmailService } from "./email/email.service";
 import { PatientModule } from "./patient/patient.module";
 import { DoctorModule } from "./doctor/doctor.module";
 import { StorageModule } from "./storage/storage.module";
@@ -29,7 +27,6 @@ import { StorageModule } from "./storage/storage.module";
     RoleModule,
     AuthModule,
     UserModule,
-    EmailModule,
     CqrsModule,
     PatientModule,
     DoctorModule,
@@ -43,14 +40,10 @@ import { StorageModule } from "./storage/storage.module";
   ],
 })
 export class AppModule implements OnModuleInit, OnApplicationShutdown {
-  constructor(
-    private dbService: DatabaseService,
-    private emailService: EmailService
-  ) {}
+  constructor(private dbService: DatabaseService) {}
 
   public onModuleInit() {
     this.dbService.startConnecting();
-    this.emailService.initMailer();
   }
 
   public async onApplicationShutdown() {

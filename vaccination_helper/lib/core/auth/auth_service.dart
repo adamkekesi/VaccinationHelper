@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:vaccination_helper/core/auth/dtos/doctor_register_dto.dart';
 import 'package:vaccination_helper/core/auth/dtos/login_dto.dart';
 import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/auth/responses/login_response.dart';
-import 'package:vaccination_helper/core/user/user_entity.dart';
 import 'package:vaccination_helper/helpers/rest/rest_client.dart';
 
 class AuthService {
@@ -19,5 +19,16 @@ class AuthService {
   static Future<LoginResponse> jwtlogin() async {
     return await RestClient.httpPost("auth/jwtlogin",
         responseDeserializer: LoginResponse.fromJson);
+  }
+
+  static Future<LoginResponse> registerDoctor(DoctorRegisterDto payload) async {
+    return await RestClient.httpPost("auth/register-doctor",
+        body: payload, responseDeserializer: LoginResponse.fromJson);
+  }
+
+  static Future<LoginResponse> registerPatient(
+      PatientRegisterDto payload) async {
+    return await RestClient.httpPost("auth/register-patient",
+        body: payload, responseDeserializer: LoginResponse.fromJson);
   }
 }
