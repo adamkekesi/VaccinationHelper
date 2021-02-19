@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
-import 'package:vaccination_helper/pages/loading_page/loading.dart';
+import 'package:vaccination_helper/pages/loading/loading.dart';
+import 'package:vaccination_helper/pages/user_sing_up/user_sing_up.dart';
 
 class AccountType extends StatelessWidget {
   AccountType({this.translator});
@@ -16,6 +17,7 @@ class AccountType extends StatelessWidget {
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,
+        elevation: 10,
         backgroundColor: Colors.cyan,
       ),
       body: Center(
@@ -25,8 +27,10 @@ class AccountType extends StatelessWidget {
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
               onPressed: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => new Loading()));
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new UserSingUp()));
               },
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
