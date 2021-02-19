@@ -1,15 +1,14 @@
 import { IsNotEmpty } from "class-validator";
-import CaptchaDto from "src/captcha/captcha.dto";
 import { Serializable, JsonProperty } from "typescript-json-serializer";
 
 @Serializable()
-export default class LoginDto extends CaptchaDto {
+export default class LoginDto {
   @JsonProperty()
   @IsNotEmpty({
-    message: "username-empty",
+    message: "email-empty",
     context: { skipOthers: true },
   })
-  public username: string;
+  public email: string;
 
   @JsonProperty()
   @IsNotEmpty({

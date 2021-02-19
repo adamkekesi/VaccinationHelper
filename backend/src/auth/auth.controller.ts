@@ -1,18 +1,27 @@
-import { Controller, Post, Body } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  UseInterceptors,
+  UploadedFile,
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import LoginDto from "./dto/login.dto";
 import AuthenticatedUser from "./authenticated-user.model";
-import { CaptchaCheckerPipe } from "src/captcha/captcha-checker.pipe";
 import Response from "src/shared/Response";
 import InvalidAuthToken from "src/auth/exception/invalid-auth-token.exception";
-import RegisterDto from "./dto/register.dto";
-import PasswordResetRequestDto from "./dto/password-reset-request.dto";
-import PasswordResetDto from "./dto/password-reset.dto";
-import EmailVerificationRequestDto from "./dto/email-verification-request.dto";
-import EmailVerificationDto from "./dto/email-verification.dto";
 import LoginResponse from "./response/login.response";
 import { Authenticate } from "./decorator/authenticate.decorator";
 import { User } from "./decorator/authenticated-user.decorator";
+import PatientRegisterDto from "./dto/patient-register.dto";
+import DoctorRegisterDto from "./dto/doctor-register.dto";
+import { UploadCleanupInterceptor } from "src/storage/interceptors/upload-cleanup.interceptor";
+import { BeforeSerialization } from "src/shared/decorators/before-serialization.decorator";
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from "@nestjs/platform-express";
+import InvalidFields from "src/shared/exceptions/invalid-fields.exception";
 
 @Controller("auth")
 export class AuthController {
@@ -21,7 +30,7 @@ export class AuthController {
   @Post("/login")
   @Authenticate()
   public async login(
-    @Body(CaptchaCheckerPipe) loginDto: LoginDto,
+    @Body() loginDto: LoginDto,
     @User() authenticatedUser: AuthenticatedUser
   ) {
     if (authenticatedUser) {
@@ -47,37 +56,35 @@ export class AuthController {
     return new LoginResponse(authenticatedUser.user, undefined);
   }
 
-  @Post("/register")
-  public async register(@Body(CaptchaCheckerPipe) registerDto: RegisterDto) {
-    const user = await this.authService.register(registerDto);
+  @Post("/register-patient")
+  @UseInterceptors(UploadCleanupInterceptor)
+  @BeforeSerialization(FileInterceptor("profilePicture"))
+  public async registerPatient(
+    @Body() registerDto: PatientRegisterDto,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    if (!file) {
+      throw InvalidFields.fromOneInvalidField("profilePicture", [
+        "profilePicture-empty",
+      ]);
+    }
+    const user = await this.authService.registerPatient(registerDto, file);
     return new Response({ data: user });
   }
 
-  @Post("/request-password-reset")
-  public async sendPasswordReset(
-    @Body(CaptchaCheckerPipe) payload: PasswordResetRequestDto
+  @Post("/register-doctor")
+  @UseInterceptors(UploadCleanupInterceptor)
+  @BeforeSerialization(FileInterceptor("profilePicture"))
+  public async registerDoctor(
+    @Body() registerDto: DoctorRegisterDto,
+    @UploadedFile() file: Express.Multer.File
   ) {
-    await this.authService.sendPasswordReset(payload.email);
-  }
-
-  @Post("/reset-password")
-  public async resetPassword(
-    @Body(CaptchaCheckerPipe) payload: PasswordResetDto
-  ) {
-    await this.authService.resetPassword(payload);
-  }
-
-  @Post("/request-email-verification")
-  public async sendEmailVerification(
-    @Body(CaptchaCheckerPipe) payload: EmailVerificationRequestDto
-  ) {
-    await this.authService.sendEmailVerification(payload.email);
-  }
-
-  @Post("/verify-email")
-  public async verifyEmail(
-    @Body(CaptchaCheckerPipe) payload: EmailVerificationDto
-  ) {
-    await this.authService.verifyEmail(payload.token);
+    if (!file) {
+      throw InvalidFields.fromOneInvalidField("profilePicture", [
+        "profilePicture-empty",
+      ]);
+    }
+    const user = await this.authService.registerDoctor(registerDto, file);
+    return new Response({ data: user });
   }
 }

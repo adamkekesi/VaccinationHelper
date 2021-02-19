@@ -1,6 +1,7 @@
 import AuthTokenEntity from "src/auth/entity/auth-token.entity";
 import TokenEntity from "src/auth/entity/token.entity";
 import RoleEntity from "src/role/role.entity";
+import { StoragePrefix } from "src/storage/decorator/storage-prefix.decorator";
 import {
   Entity,
   Column,
@@ -8,11 +9,14 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  TableInheritance,
 } from "typeorm";
 import { Serializable, JsonProperty } from "typescript-json-serializer";
 
 @Entity()
 @Serializable()
+@TableInheritance({ column: { type: "varchar", name: "userType" } })
+@StoragePrefix("user")
 export default class UserEntity {
   @PrimaryGeneratedColumn("uuid")
   @JsonProperty()
@@ -24,7 +28,11 @@ export default class UserEntity {
 
   @Column()
   @JsonProperty()
-  public username: string;
+  public fullName: string;
+
+  @Column()
+  @JsonProperty()
+  public phoneNumber: string;
 
   @Column()
   @JsonProperty({
@@ -33,10 +41,6 @@ export default class UserEntity {
     },
   })
   public password: string;
-
-  @Column()
-  @JsonProperty()
-  public verified: boolean;
 
   @ManyToMany(() => RoleEntity)
   @JoinTable()
@@ -49,12 +53,17 @@ export default class UserEntity {
   @OneToMany(() => TokenEntity, (token) => token.user)
   public tokens: Promise<TokenEntity[]>;
 
-  constructor(email: string, username: string, password: string) {
-    if (email && username && password) {
+  constructor(
+    email: string,
+    fullName: string,
+    phoneNumber: string,
+    password: string
+  ) {
+    if (email && password) {
       this.email = email;
-      this.username = username;
+      this.fullName = fullName;
+      this.phoneNumber = phoneNumber;
       this.password = password;
-      this.verified = false;
       this.roles = [];
     }
   }
