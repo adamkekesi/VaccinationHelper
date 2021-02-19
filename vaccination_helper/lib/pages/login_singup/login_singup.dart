@@ -25,12 +25,7 @@ class Login extends StatelessWidget {
           children: [
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new AccountType()));
-              },
+              onPressed: () {},
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -55,7 +50,12 @@ class Login extends StatelessWidget {
             ),
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new AccountType()));
+              },
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),

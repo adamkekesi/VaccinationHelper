@@ -4,8 +4,8 @@ import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
-import 'package:vaccination_helper/pages/home_page/home.dart';
-import 'package:vaccination_helper/pages/loading_page/loading.dart';
+import 'package:vaccination_helper/pages/loading/loading.dart';
+import 'package:vaccination_helper/pages/login_singup/login_singup.dart';
 
 part 'loading_page_connector.g.dart';
 
@@ -18,7 +18,7 @@ class LoadingPageConnector extends StatelessWidget {
           if (vm.state.isAppLoaded) {
             Future.delayed(new Duration(seconds: 2), () {
               return Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+                  context, MaterialPageRoute(builder: (context) => Login()));
             });
           }
           return Loading();

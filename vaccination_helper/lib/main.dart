@@ -7,8 +7,7 @@ import 'package:vaccination_helper/core/redux/store.dart';
 import 'package:vaccination_helper/core/settings/settings_persist.dart';
 import 'package:vaccination_helper/helpers/rest/rest_client.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:vaccination_helper/pages/loading_page/loading.dart';
-import 'package:vaccination_helper/pages/loading_page/loading_page_connector.dart';
+import 'package:vaccination_helper/pages/loading/loading_page_connector.dart';
 
 void main() async {
   runApp(AppContainer());
