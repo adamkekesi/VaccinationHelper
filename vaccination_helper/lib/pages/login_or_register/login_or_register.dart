@@ -20,6 +20,8 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
 
    });});
   }
+
+
   @override
   Widget build(BuildContext context) {
     _scale = 1-_controller.value;
@@ -28,6 +30,104 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Column(
+              children: [Container(
+                width: 300,
+                  height: 60,
+                child: _textfieldUi(
+                  hintText: "Név",
+                  icon: Icons.account_circle
+                )
+              ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "Lakcím",
+                        icon: Icons.place_outlined
+                    )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "Születési idő",
+                        icon: Icons.date_range
+                    )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "Email",
+                        icon: Icons.email
+                    )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "Személyi szám",
+                        icon: Icons.confirmation_num
+                    )
+                ),SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "TAJ szám",
+                        icon: Icons.confirmation_number_sharp
+                    )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "telefonszám",
+                        icon: Icons.phone_iphone
+                    )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "Jelszó",
+                        icon: Icons.lock_open
+                    )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 300,
+                    height: 60,
+                    child: _textfieldUi(
+                        hintText: "Jelszó újra",
+                        icon: Icons.lock_open
+                    )
+                ),
+              ]
+            ),
             Text('tap on the button below'),
             SizedBox(height: 20.0,),
             Center(
@@ -36,22 +136,44 @@ class _ButtonState extends State<Button> with SingleTickerProviderStateMixin {
                   onTapUp: _onTapUp,
               child: Transform.scale(
                   scale: _scale,
-              child: _animatedButtonUi,),),
+              child: _animatedButtonUi,
+              ),
+              ),
             )
           ],
         ),
       ),
     );
   }
+
+  Widget _textfieldUi({String hintText, IconData icon}) {
+    return TextField(
+      decoration: InputDecoration(
+
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.greenAccent),
+              borderRadius: BorderRadius.all(Radius.circular(100))
+          ),
+          prefixIcon: Icon(icon),
+          hintText: hintText
+
+      ),
+
+    );
+  }
   Widget get _animatedButtonUi => Container(
-    height: 70,
+    height: 60,
     width: 300,
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.0),
 
       color: Colors.cyan),
     child: Center(
-      child: Text("Tap",
+      child: Text("Küldés",
         style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
