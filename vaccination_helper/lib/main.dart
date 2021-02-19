@@ -5,7 +5,7 @@ import 'package:vaccination_helper/core/redux/store.dart';
 import 'package:vaccination_helper/core/settings/settings_persist.dart';
 import 'package:vaccination_helper/helpers/rest/rest_client.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:vaccination_helper/pages/home/home.dart';
+import 'package:vaccination_helper/pages/home_page/home.dart';
 import 'package:vaccination_helper/pages/loading_page/loading.dart';
 import 'package:vaccination_helper/pages/login_or_register/login_or_register.dart';
 
@@ -31,6 +31,6 @@ class VaccinationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Vaccination Helper', home: Button());
+    return MaterialApp(title: 'Vaccination Helper', home: Home());
   }
 }
