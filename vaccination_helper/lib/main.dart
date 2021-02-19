@@ -8,15 +8,26 @@ import 'package:async_redux/async_redux.dart';
 import 'package:vaccination_helper/pages/home/home.dart';
 
 void main() async {
-  runApp(MyApp());
+  runApp(AppContainer());
 }
 
-class MyApp extends StatelessWidget {
+class AppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      child: MaterialApp(title: 'Demo App', home: Home()),
+      child: VaccinationApp(),
       store: store,
     );
+  }
+}
+
+class VaccinationApp extends StatelessWidget {
+  const VaccinationApp({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(title: 'Demo App', home: Home());
   }
 }
