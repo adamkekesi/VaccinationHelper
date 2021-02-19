@@ -16,6 +16,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   SettingsState get settingsState;
 
+  bool get isAppLoaded;
+
   AppState._();
 
   factory AppState([void Function(AppStateBuilder) updates]) {
@@ -28,6 +30,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       b.jwtloginState.replace(new LoginState.initial());
       b.authState.replace(new AuthState.initial());
       b.settingsState.replace(new SettingsState.initial());
+      b.isAppLoaded = false;
     });
   }
 
@@ -46,6 +49,12 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   AppState changeSettingsState(SettingsState state) {
     return this.rebuild((b) {
       b.settingsState.replace(state);
+    });
+  }
+
+  AppState loaded() {
+    return this.rebuild((b) {
+      b.isAppLoaded = true;
     });
   }
 }

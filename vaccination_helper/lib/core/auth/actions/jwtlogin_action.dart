@@ -18,6 +18,9 @@ class JwtloginAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState> reduce() async {
+    if (state.authState.jwt == null || state.authState.jwt == "") {
+      return null;
+    }
     try {
       var result = await AuthService.jwtlogin();
       if (result?.user == null) {
@@ -66,12 +69,5 @@ class StartJwtloginLoadingAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state.changeJwtloginState(state.jwtloginState.loading());
-  }
-}
-
-class HideJwtloginFeedbackAction extends ReduxAction<AppState> {
-  @override
-  Future<AppState> reduce() async {
-    return state.changeJwtloginState(state.jwtloginState.clearFeedback());
   }
 }
