@@ -5,6 +5,7 @@ import 'package:vaccination_helper/core/auth/auth_persist.dart';
 import 'package:vaccination_helper/core/auth/auth_service.dart';
 import 'package:vaccination_helper/core/auth/state/auth_state.dart';
 import 'package:vaccination_helper/core/auth/dtos/login_dto.dart';
+import 'package:vaccination_helper/core/auth/state/login_state.dart';
 import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 import 'package:vaccination_helper/helpers/exceptions/unknown_exception.dart';
@@ -69,5 +70,12 @@ class HideLoginFeedbackAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     return state.changeLoginState(state.loginState.clearFeedback());
+  }
+}
+
+class OverrideLoginStateAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state.changeLoginState(new LoginState.initial());
   }
 }

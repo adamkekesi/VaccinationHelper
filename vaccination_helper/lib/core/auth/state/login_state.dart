@@ -1,5 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:vaccination_helper/core/auth/dtos/login_dto.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 import 'package:vaccination_helper/helpers/exceptions/invalid_fields.dart';
 
@@ -13,6 +14,8 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
   @nullable
   BaseException get exception;
 
+  LoginDto get payload;
+
   LoginState._();
 
   factory LoginState([void Function(LoginStateBuilder) updates]) {
@@ -24,6 +27,7 @@ abstract class LoginState implements Built<LoginState, LoginStateBuilder> {
       b.isLoading = false;
       b.isSuccessful = false;
       b.exception = null;
+      b.payload = new LoginDto();
     });
   }
 

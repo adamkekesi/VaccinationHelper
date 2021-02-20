@@ -6,13 +6,13 @@ part 'login_dto.g.dart';
 
 @JsonSerializable()
 class LoginDto extends CaptchaDto implements SerializableObject {
-  String username;
+  String email;
 
   String password;
 
   LoginDto();
 
-  LoginDto.create(this.username, this.password);
+  LoginDto.create(this.email, this.password);
 
   factory LoginDto.fromJson(Map<String, dynamic> json) =>
       _$LoginDtoFromJson(json);
