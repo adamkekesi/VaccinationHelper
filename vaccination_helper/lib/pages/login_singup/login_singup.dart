@@ -29,55 +29,57 @@ class LandingPage extends StatelessWidget {
         backgroundColor: Colors.cyan,
       ),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RaisedButton(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
-              onPressed: () => jumpToLoginPage(context),
-              color: Colors.cyan[500],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              child: Text(
-                "Bejelentkezés",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Comfortaa',
-                  fontSize: 25,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
+                onPressed: () => jumpToLoginPage(context),
+                color: Colors.cyan[500],
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: Text(
+                  "Bejelentkezés",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Comfortaa',
+                    fontSize: 25,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              "Vagy",
-              style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            RaisedButton(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new AccountTypeConnector()));
-              },
-              color: Colors.cyan,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              child: Text(
-                "Felhasználó létrehozása",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Comfortaa',
-                  fontSize: 25,
+              SizedBox(
+                height: 40,
+              ),
+              Text(
+                "Vagy",
+                style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new AccountTypeConnector()));
+                },
+                color: Colors.cyan,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: Text(
+                  "Felhasználó létrehozása",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Comfortaa',
+                    fontSize: 25,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
