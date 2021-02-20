@@ -13,7 +13,7 @@ class AccountType extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Felhasználó',
+          'Felhasználói típusok',
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,

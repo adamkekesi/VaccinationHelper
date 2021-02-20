@@ -13,7 +13,7 @@ String password;
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-Widget _buildNameField(){
+Widget _buildNameField() {
   return TextField(
     decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -27,31 +27,40 @@ Widget _buildNameField(){
         hintText: "Név"),
   );
 }
-Widget _buildAddressField(){
+
+Widget _buildAddressField() {
   return null;
 }
-Widget _buildZipcodeField(){
+
+Widget _buildZipcodeField() {
   return null;
 }
-Widget _buildCityField(){
+
+Widget _buildCityField() {
   return null;
 }
-Widget _buildDateOfBirthField(){
+
+Widget _buildDateOfBirthField() {
   return null;
 }
-Widget _buildEmailField(){
+
+Widget _buildEmailField() {
   return null;
 }
-Widget _buildIdentityCardNumberField(){
+
+Widget _buildIdentityCardNumberField() {
   return null;
 }
-Widget _buildSsnField(){
+
+Widget _buildSsnField() {
   return null;
 }
-Widget _buildPhoneNumberField(){
+
+Widget _buildPhoneNumberField() {
   return null;
 }
-Widget _buildPasswordField(){
+
+Widget _buildPasswordField() {
   return null;
 }
 
@@ -96,7 +105,7 @@ class _ButtonState extends State<UserSingUp>
           children: <Widget>[
             Form(
               child: Column(children: [
-                _buildNameField()/*
+                _buildNameField() /*
                 Container(
                     width: 300,
                     height: 60,
@@ -166,7 +175,8 @@ class _ButtonState extends State<UserSingUp>
                     height: 60,
                     child: _textfieldUi(
                         hintText: "Jelszó újra", icon: Icons.lock_open)),
-              */]),
+              */
+              ]),
             ),
             Text('tap on the button below'),
             SizedBox(
@@ -202,8 +212,6 @@ class _ButtonState extends State<UserSingUp>
           hintText: hintText),
     );
   }
-
-
 
   Widget get _animatedButtonUi => Container(
       height: 60,
