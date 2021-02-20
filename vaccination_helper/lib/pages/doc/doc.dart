@@ -250,7 +250,17 @@ class _DocState extends State<Doc> {
               ),
               RaisedButton(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                            title: Text('Biztos elmenti a változtatásokat?'),
+                            actions: <Widget>[
+                              FlatButton(onPressed: () {}, child: Text('Igen')),
+                              FlatButton(onPressed: () {}, child: Text('Nem'))
+                            ],
+                          ));
+                },
                 color: Colors.cyan[500],
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
