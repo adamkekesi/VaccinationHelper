@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
+import 'package:vaccination_helper/pages/doc/doc.dart';
 import 'package:vaccination_helper/pages/doctor_search/doctor_search.dart';
 import 'package:vaccination_helper/pages/user_home/main.drawer.dart';
 
@@ -57,13 +58,16 @@ class _LoginState extends State<UserHome> {
                 height: 40,
               ),
               RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                onPressed: () {},
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
+                onPressed: () {
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (context) => new Doc()));
+                },
                 color: Colors.cyan[500],
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Jelentkezési lap kitőltése",
+                  "Nyilatkozat kitőltése",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',
