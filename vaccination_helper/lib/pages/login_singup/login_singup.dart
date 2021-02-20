@@ -1,18 +1,23 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/account_type/account_type.dart';
+import 'package:vaccination_helper/pages/login/login.dart';
+import 'package:vaccination_helper/pages/test.dart';
 
-class Login extends StatelessWidget {
-  Login({this.translator});
+class LandingPage extends StatelessWidget {
+  LandingPage({this.translator});
   Translator translator;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double contWidth = size.width * 0.90;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Bejelentkezés',
+          'Vaccination Helper',
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,
@@ -24,8 +29,13 @@ class Login extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             RaisedButton(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
-              onPressed: () {},
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new MyHomePage()));
+              },
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -49,14 +59,14 @@ class Login extends StatelessWidget {
               height: 40,
             ),
             RaisedButton(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               onPressed: () {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
                         builder: (context) => new AccountType()));
               },
-              color: Colors.cyan[500],
+              color: Colors.cyan,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: Text(

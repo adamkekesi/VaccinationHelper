@@ -9,7 +9,7 @@ class PatientRegisterDto implements SerializableObject {
 
   AddressDto address;
 
-  String dateOfBirth;
+  DateTime dateOfBirth;
 
   String email;
 

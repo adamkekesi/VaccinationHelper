@@ -1,12 +1,13 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/auth/dtos/doctor_register_dto.dart';
+import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 
-part 'doctor_register_state.g.dart';
+part 'patient_register_state.g.dart';
 
-abstract class DoctorRegisterState
-    implements Built<DoctorRegisterState, DoctorRegisterStateBuilder> {
+abstract class PatientRegisterState
+    implements Built<PatientRegisterState, PatientRegisterStateBuilder> {
   bool get isLoading;
 
   bool get isSuccessful;
@@ -14,24 +15,24 @@ abstract class DoctorRegisterState
   @nullable
   BaseException get exception;
 
-  DoctorRegisterDto get payload;
+  PatientRegisterDto get payload;
 
-  DoctorRegisterState._();
+  PatientRegisterState._();
 
-  factory DoctorRegisterState(
-      [void Function(DoctorRegisterStateBuilder) updates]) {
-    return new _$DoctorRegisterState(updates);
+  factory PatientRegisterState(
+      [void Function(PatientRegisterStateBuilder) updates]) {
+    return new _$PatientRegisterState(updates);
   }
 
-  factory DoctorRegisterState.create() {
-    return new DoctorRegisterState((b) {
+  factory PatientRegisterState.create() {
+    return new PatientRegisterState((b) {
       b.isLoading = false;
       b.isSuccessful = false;
-      b.payload = new DoctorRegisterDto.create();
+      b.payload = new PatientRegisterDto.create();
     });
   }
 
-  DoctorRegisterState setResult(BaseException exception) {
+  PatientRegisterState setResult(BaseException exception) {
     return this.rebuild((b) {
       b.isLoading = false;
       b.exception = exception;
@@ -39,14 +40,14 @@ abstract class DoctorRegisterState
     });
   }
 
-  DoctorRegisterState loading() {
+  PatientRegisterState loading() {
     return this.rebuild((b) => b
       ..isLoading = true
       ..isSuccessful = false
       ..exception = null);
   }
 
-  DoctorRegisterState clearFeedback() {
+  PatientRegisterState clearFeedback() {
     return this.rebuild((b) {
       b.isSuccessful = false;
       b.exception = null;

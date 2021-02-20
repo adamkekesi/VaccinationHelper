@@ -17,8 +17,8 @@ class LoadingPageConnector extends StatelessWidget {
         builder: (BuildContext context, LoadingPageViewModel vm) {
           if (vm.state.isAppLoaded) {
             Future.delayed(new Duration(seconds: 2), () {
-              return Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+              return Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LandingPage()));
             });
           }
           return Loading();

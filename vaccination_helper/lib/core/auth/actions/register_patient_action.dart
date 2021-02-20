@@ -2,20 +2,21 @@ import 'package:async_redux/async_redux.dart';
 import 'package:vaccination_helper/core/auth/auth_persist.dart';
 import 'package:vaccination_helper/core/auth/auth_service.dart';
 import 'package:vaccination_helper/core/auth/dtos/doctor_register_dto.dart';
+import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/auth/state/auth_state.dart';
 import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 import 'package:vaccination_helper/helpers/exceptions/unknown_exception.dart';
 
-class RegisterDoctorAction extends ReduxAction<AppState> {
-  DoctorRegisterDto payload;
+class RegisterPatientAction extends ReduxAction<AppState> {
+  PatientRegisterDto payload;
 
-  RegisterDoctorAction(this.payload);
+  RegisterPatientAction(this.payload);
 
   @override
   Future<AppState> reduce() async {
     try {
-      var result = await AuthService.registerDoctor(payload);
+      var result = await AuthService.registerPatient(payload);
       if (result?.user == null) {
         throw new UnknownException();
       }
@@ -23,7 +24,8 @@ class RegisterDoctorAction extends ReduxAction<AppState> {
       await AuthPersist.persist(jwt, result.user?.id);
       return state
           .changeAuthState(new AuthState.withUserData(result.user, jwt))
-          .changeDoctorRegisterState(state.doctorRegisterState.setResult(null));
+          .changePatientRegisterState(
+              state.patientRegisterState.setResult(null));
     } catch (e) {
       BaseException error;
       if (e is BaseException) {
@@ -44,15 +46,16 @@ class DoctorRegistrationFailedAction extends ReduxAction<AppState> {
 
   @override
   AppState reduce() {
-    return state.changeDoctorRegisterState(
-        state.doctorRegisterState.setResult(exception));
+    return state.changePatientRegisterState(
+        state.patientRegisterState.setResult(exception));
   }
 }
 
 class StartDoctorRegisterLoadingAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
-    return state.changeDoctorRegisterState(state.doctorRegisterState.loading());
+    return state
+        .changePatientRegisterState(state.patientRegisterState.loading());
   }
 }
 
@@ -60,6 +63,6 @@ class HideLoginFeedbackAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     return state
-        .changeDoctorRegisterState(state.doctorRegisterState.clearFeedback());
+        .changePatientRegisterState(state.patientRegisterState.clearFeedback());
   }
 }
