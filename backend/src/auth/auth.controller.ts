@@ -85,6 +85,14 @@ export class AuthController {
         "profilePicture-empty",
       ]);
     }
+    if (!registerDto.isHomeDoctor && !registerDto.isVaccinatorDoctor) {
+      throw InvalidFields.fromInvalidFields({
+        isHomeDoctor: { errorCodes: ["isHomeDoctor-no-doctor-type-selected"] },
+        isVaccinatorDoctor: {
+          errorCodes: ["isVaccinatorDoctor-no-doctor-type-selected"],
+        },
+      });
+    }
     const user = await this.authService.registerDoctor(registerDto, file);
     return new Response({ data: user });
   }

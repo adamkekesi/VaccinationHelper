@@ -1,6 +1,8 @@
 import AuthTokenEntity from "src/auth/entity/auth-token.entity";
 import TokenEntity from "src/auth/entity/token.entity";
-import RoleEntity from "src/role/role.entity";
+import RoleModel from "src/role/models/role.model";
+import RoleHelper from "src/role/role.helper";
+import { roles } from "src/role/roles";
 import { StoragePrefix } from "src/storage/decorator/storage-prefix.decorator";
 import {
   Entity,
@@ -10,6 +12,7 @@ import {
   JoinTable,
   OneToMany,
   TableInheritance,
+  AfterLoad,
 } from "typeorm";
 import { Serializable, JsonProperty } from "typescript-json-serializer";
 
@@ -42,10 +45,8 @@ export default class UserEntity {
   })
   public password: string;
 
-  @ManyToMany(() => RoleEntity)
-  @JoinTable()
-  @JsonProperty()
-  public roles: RoleEntity[];
+  @Column({ type: "simple-array" })
+  public roleNames: string[];
 
   @OneToMany(() => AuthTokenEntity, (token) => token.user)
   public authTokens: Promise<AuthTokenEntity[]>;
@@ -55,6 +56,9 @@ export default class UserEntity {
 
   @JsonProperty()
   public type: "PatientEntity" | "DoctorEntity";
+
+  @JsonProperty()
+  public roles: RoleModel[];
 
   constructor(
     email: string,
@@ -67,7 +71,16 @@ export default class UserEntity {
       this.fullName = fullName;
       this.phoneNumber = phoneNumber;
       this.password = password;
-      this.roles = [];
+      this.roleNames = [];
     }
+  }
+
+  public populateRoles() {
+    this.roles = this.roleNames.map((name) => roles[name]);
+  }
+
+  @AfterLoad()
+  private afterLoad() {
+    this.populateRoles();
   }
 }

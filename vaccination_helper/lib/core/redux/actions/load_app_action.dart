@@ -15,8 +15,6 @@ class LoadAppAction extends ReduxAction<AppState> {
       await SettingsPersist.init();
       await dispatchFuture(new JwtloginAction());
     } catch (e) {}
-    await dispatchFuture(
-        new LoginAction(new LoginDto.create("kekesiadi", "sd")));
     return state.loaded();
   }
 }

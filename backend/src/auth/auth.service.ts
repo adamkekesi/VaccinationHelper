@@ -83,22 +83,24 @@ export class AuthService extends BaseService {
       raw: false,
     });
 
-    const patient = await patientRepository.save(
-      new PatientEntity(
-        registerDto.email,
-        registerDto.fullName,
-        registerDto.phoneNumber,
-        hashedPassword,
-        new AddressModel(
-          registerDto.address.zipCode,
-          registerDto.address.city,
-          registerDto.address.address
-        ),
-        registerDto.dateOfBirth,
-        registerDto.identityCardNumber,
-        registerDto.ssn
-      )
+    const patient = new PatientEntity(
+      registerDto.email,
+      registerDto.fullName,
+      registerDto.phoneNumber,
+      hashedPassword,
+      new AddressModel(
+        registerDto.address.zipCode,
+        registerDto.address.city,
+        registerDto.address.address
+      ),
+      registerDto.dateOfBirth,
+      registerDto.identityCardNumber,
+      registerDto.ssn
     );
+
+    this.roleHelper.givePatientRole(patient);
+
+    await patientRepository.save(patient);
 
     if (profilePicture) {
       await this.storageService.saveFiles([profilePicture], patient);
@@ -138,6 +140,14 @@ export class AuthService extends BaseService {
         registerDto.isVaccinatorDoctor
       )
     );
+
+    if (doctor.isHomeDoctor) {
+      this.roleHelper.giveHomeDoctorRole(doctor);
+    }
+
+    if (doctor.isVaccinatorDoctor) {
+      this.roleHelper.giveVaccinatorDoctorRole(doctor);
+    }
 
     await this.storageService.saveFiles([profilePicture], doctor);
 
