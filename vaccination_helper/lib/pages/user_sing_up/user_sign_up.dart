@@ -110,7 +110,7 @@ class _UserSignUpState extends State<UserSignUp>
                       _buildEmailField(),SizedBox(height: 20.0),
               _buildCityField(),SizedBox(height: 20.0),
               _buildZipcodeField(),SizedBox(height: 20.0),
-              //_buildAddressField(),SizedBox(height: 20.0),
+              _buildAddressField(),SizedBox(height: 20.0),
                       //_buildDateOfBirthField()
                       TableCalendar(
                         //locale: Locale("hu", "HU").toString(),
@@ -177,13 +177,13 @@ class _UserSignUpState extends State<UserSignUp>
 
   Widget _buildAddressField() {
     return TextFormField(
-      maxLength: 10,
+      maxLength: 30,
       style: TextStyle(
         color: Colors.black,
         fontFamily: 'Comfortaa',
         fontSize: 15,
       ),
-      keyboardType: TextInputType.numberWithOptions(),
+      keyboardType: TextInputType.streetAddress,
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue),

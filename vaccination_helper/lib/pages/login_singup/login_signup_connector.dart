@@ -68,4 +68,114 @@ abstract class LoginSignupState
   }
 }
 
-const Map<String, Map<String, String>> translationOverrides = {};
+const Map<String, Map<String, String>> translationOverrides = {
+  "name-hint-text":{"en":"Name", "hu":"Név"},
+
+  "email-hint-text":{
+  "en":"Email address",
+  "hu":"Email cím"},
+
+  "city-hint-text":{
+    "en":"City",
+    "hu":"Város"},
+
+  "zip-hint-text":{
+    "en":"ZIP code",
+    "hu":"Irányító szám"},
+
+  "identity-hint-text":{
+    "en":"Identity Card number",
+    "hu":"Személyi igazlvány szám"},
+
+  "taj-hint-text":{
+    "en":"SSN number",
+    "hu":"TAJ szám"},
+
+  "phone-hint-text":{
+    "en":"Phone number",
+    "hu":"Telefonszám"},
+
+  "password-hint-text":{
+    "en":"Password",
+    "hu":"Jelszó"},
+
+  "birth-date-hint-text":{
+    "en":"Birth Date",
+    "hu":"Születési hely"},
+
+  "address-hint-text":{
+    "en":"Address",
+    "hu":"Lakcím"},
+
+
+  //-----------------------------------------------------------------------------------
+
+  "name-required-text":{
+    "en":"Name is required",
+    "hu":"Név mező nem lehet üres"},
+
+  "email-required-text":{
+    "en":"Email address is required",
+    "hu":"Email cím mező nem lehet üres"},
+
+  "city-required-text":{
+    "en":"City is required",
+    "hu":"Város mező nem lehet üres"},
+
+  "zip-required-text":{
+    "en":"ZIP code is required",
+    "hu":"Irányító szám mező nem lehet üres"},
+
+  "identity-required-text":{
+    "en":"Identity Card number is required",
+    "hu":"Személyi igazlvány szám mező nem lehet üres"},
+
+  "taj-required-text":{
+    "en":"SSN number is required",
+    "hu":"TAJ szám mező nem lehet üres"},
+
+  "phone-required-text":{
+    "en":"Phone number is required",
+    "hu":"Telefonszám mező nem lehet üres"},
+
+  "password-required-text":{
+    "en":"Password is required",
+    "hu":"Jelszó mező nem lehet üres"},
+
+  "birth-date-required-text":{
+    "en":"Birth Date is required",
+    "hu":"Születési hely mező nem lehet üres"},
+
+  "address-required-text":{
+    "en":"Address is required",
+    "hu":"Lakcím mező nem lehet üres"},
+
+
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  /*"key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},
+  "key19":{
+    "en":"English version",
+    "hu":"magyar változat"},*/
+
+
+
+};
