@@ -36,7 +36,8 @@ export class AuthController {
     if (authenticatedUser) {
       return new LoginResponse(authenticatedUser.user, undefined);
     }
-    return await this.authService.login(loginDto);
+    const result = await this.authService.login(loginDto);
+    return new LoginResponse(result.user, result.jwt);
   }
 
   @Post("/logout")
@@ -83,6 +84,14 @@ export class AuthController {
       throw InvalidFields.fromOneInvalidField("profilePicture", [
         "profilePicture-empty",
       ]);
+    }
+    if (!registerDto.isHomeDoctor && !registerDto.isVaccinatorDoctor) {
+      throw InvalidFields.fromInvalidFields({
+        isHomeDoctor: { errorCodes: ["isHomeDoctor-no-doctor-type-selected"] },
+        isVaccinatorDoctor: {
+          errorCodes: ["isVaccinatorDoctor-no-doctor-type-selected"],
+        },
+      });
     }
     const user = await this.authService.registerDoctor(registerDto, file);
     return new Response({ data: user });

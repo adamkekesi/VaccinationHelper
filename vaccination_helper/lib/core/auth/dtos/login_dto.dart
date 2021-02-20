@@ -1,11 +1,10 @@
-import 'package:vaccination_helper/helpers/dtos/captcha_dto.dart';
 import 'package:vaccination_helper/helpers/rest/serializable_object.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'login_dto.g.dart';
 
 @JsonSerializable()
-class LoginDto extends CaptchaDto implements SerializableObject {
+class LoginDto implements SerializableObject {
   String email;
 
   String password;

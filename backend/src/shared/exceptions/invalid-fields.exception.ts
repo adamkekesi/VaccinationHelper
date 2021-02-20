@@ -8,8 +8,13 @@ export default class InvalidFields
   implements IPayloadException {
   public static fromOneInvalidField(name: string, errorCodes: string[]) {
     const err = new InvalidFields([]);
-    err.message = errorCodes.length === 1 ? errorCodes[0] : "";
     err.fields[name] = { errorCodes: errorCodes };
+    return err;
+  }
+
+  public static fromInvalidFields(fields: IDictionary<Field>) {
+    const err = new InvalidFields([]);
+    err.fields = fields;
     return err;
   }
 
@@ -17,15 +22,7 @@ export default class InvalidFields
 
   constructor(errors: ValidationError[]) {
     super();
-    var msgs = "";
-    if (errors.length !== 0) {
-      msgs = this.getErrorCodes(errors[0])[0];
-    }
-    if (errors.length === 1 && msgs.length === 1) {
-      this.message = msgs[0];
-    } else {
-      this.message = "";
-    }
+
     errors.forEach((e) => {
       this.fields[e.property] = {
         errorCodes: this.getErrorCodes(e),

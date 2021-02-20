@@ -35,7 +35,7 @@ export class AuthService extends BaseService {
       AuthTokenEntity
     );
     const user = await userRepository.findOne({
-      where: { username: credentials.email },
+      where: { email: credentials.email },
     });
     if (
       !user ||
@@ -44,7 +44,10 @@ export class AuthService extends BaseService {
       throw new InvalidCredentials();
     }
     const token = await authTokenRepository.save(new AuthTokenEntity(user));
-    return { user, jwt: await this.jwtService.createJwt(token) };
+    return {
+      user: await this.prepareEntity(user),
+      jwt: await this.jwtService.createJwt(token),
+    };
   }
 
   public async logout(user: AuthenticatedUser) {
@@ -80,26 +83,30 @@ export class AuthService extends BaseService {
       raw: false,
     });
 
-    const patient = await patientRepository.save(
-      new PatientEntity(
-        registerDto.email,
-        registerDto.fullName,
-        registerDto.phoneNumber,
-        hashedPassword,
-        new AddressModel(
-          registerDto.address.zipCode,
-          registerDto.address.city,
-          registerDto.address.address
-        ),
-        registerDto.dateOfBirth,
-        registerDto.identityCardNumber,
-        registerDto.ssn
-      )
+    const patient = new PatientEntity(
+      registerDto.email,
+      registerDto.fullName,
+      registerDto.phoneNumber,
+      hashedPassword,
+      new AddressModel(
+        registerDto.address.zipCode,
+        registerDto.address.city,
+        registerDto.address.address
+      ),
+      registerDto.dateOfBirth,
+      registerDto.identityCardNumber,
+      registerDto.ssn
     );
 
-    await this.storageService.saveFiles([profilePicture], patient);
+    this.roleHelper.givePatientRole(patient);
 
-    return patient;
+    await patientRepository.save(patient);
+
+    if (profilePicture) {
+      await this.storageService.saveFiles([profilePicture], patient);
+    }
+
+    return this.prepareEntity(patient);
   }
 
   public async registerDoctor(
@@ -134,8 +141,26 @@ export class AuthService extends BaseService {
       )
     );
 
+    if (doctor.isHomeDoctor) {
+      this.roleHelper.giveHomeDoctorRole(doctor);
+    }
+
+    if (doctor.isVaccinatorDoctor) {
+      this.roleHelper.giveVaccinatorDoctorRole(doctor);
+    }
+
     await this.storageService.saveFiles([profilePicture], doctor);
 
-    return doctor;
+    return this.prepareEntity(doctor);
+  }
+
+  private async prepareEntity(entity: UserEntity) {
+    if (entity instanceof DoctorEntity) {
+      entity.type = "DoctorEntity";
+    }
+    if (entity instanceof PatientEntity) {
+      entity.type = "PatientEntity";
+    }
+    return entity;
   }
 }

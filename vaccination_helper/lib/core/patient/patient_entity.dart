@@ -1,12 +1,18 @@
-/* import 'package:json_annotation/json_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/user/user_entity.dart';
+import 'package:vaccination_helper/core/role/entity/role_entity.dart';
 
-part '.g.dart';
+part 'patient_entity.g.dart';
 
 @JsonSerializable()
-class PatientEntity {
+class PatientEntity extends UserEntity {
+  Address getaddress;
+  DateTime dateOfBirth;
+  String identityCardNumber;
+  String ssn;
+
   PatientEntity();
 
   static PatientEntity fromJson(Map<String, dynamic> json) {
@@ -14,21 +20,19 @@ class PatientEntity {
   }
 
   Map<String, dynamic> toJson() => _$PatientEntityToJson(this);
-
-  PatientState toImmutableState() {
-    return new PatientState.fromPatientEntity(this);
-  }
 }
 
-abstract class PatientState extends UserState
-    implements Built<PatientState, PatientStateBuilder> {
-  PatientState._();
+@JsonSerializable()
+class Address {
+  String zipCode;
+  String city;
+  String address;
 
-  factory PatientState([void Function(PatientStateBuilder) updates]) {
-    return new _$PatientState(updates);
+  Address();
+
+  factory Address.fromJson(Map<String, dynamic> json) {
+    return _$AddressFromJson(json);
   }
 
-  factory PatientState.fromPatientEntity(PatientEntity) {
-    return new PatientState((b) {});
-  }
-} */
+  Map<String, dynamic> toJson() => _$AddressToJson(this);
+}

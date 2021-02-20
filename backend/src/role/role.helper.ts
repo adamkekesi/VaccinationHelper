@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import UserEntity from "src/user/user.entity";
 import Resource from "./models/resource.model";
-import RoleEntity from "./role.entity";
+import RoleModel from "./models/role.model";
 
 @Injectable()
 export default class RoleHelper {
@@ -13,7 +13,7 @@ export default class RoleHelper {
     resourceOwnerId?: string
   ) {
     const roles = user.roles;
-    const grants = roles.reduce((previous: Resource[], current: RoleEntity) => {
+    const grants = roles.reduce((previous: Resource[], current: RoleModel) => {
       previous.push(...current.grants);
       return previous;
     }, [] as Resource[]);
@@ -31,5 +31,20 @@ export default class RoleHelper {
         );
       })
     );
+  }
+
+  public givePatientRole(user: UserEntity) {
+    user.roleNames.push("patient");
+    user.populateRoles();
+  }
+
+  public giveHomeDoctorRole(user: UserEntity) {
+    user.roleNames.push("homeDoctor");
+    user.populateRoles();
+  }
+
+  public giveVaccinatorDoctorRole(user: UserEntity) {
+    user.roleNames.push("vaccinatorDoctor");
+    user.populateRoles();
   }
 }

@@ -1,3 +1,5 @@
+import 'package:vaccination_helper/core/doctor/doctor_entity.dart';
+import 'package:vaccination_helper/core/patient/patient_entity.dart';
 import 'package:vaccination_helper/core/role/entity/role_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:built_value/built_value.dart';
@@ -17,43 +19,23 @@ class UserEntity {
 
   List<RoleEntity> roles;
 
+  String type;
+
   UserEntity();
 
   static UserEntity fromJson(Map<String, dynamic> json) {
-    return _$UserEntityFromJson(json);
+    var user = _$UserEntityFromJson(json);
+
+    if (user.type == "PatientEntity") {
+      return PatientEntity.fromJson(json);
+    }
+
+    if (user.type == "DoctorEntity") {
+      return DoctorEntity.fromJson(json);
+    }
+
+    return user;
   }
 
   Map<String, dynamic> toJson() => _$UserEntityToJson(this);
-
-  UserState toImmutableState() {
-    return new UserState.fromUserEntity(this);
-  }
-}
-
-abstract class UserState implements Built<UserState, UserStateBuilder> {
-  String get id;
-
-  String get email;
-
-  String get username;
-
-  bool get verified;
-
-  BuiltList<RoleState> get roles;
-
-  UserState._();
-
-  factory UserState([void Function(UserStateBuilder) updates]) {
-    return new _$UserState(updates);
-  }
-
-  factory UserState.fromUserEntity(UserEntity entity) {
-    return new _$UserState((b) {
-      b.id = entity.id;
-      b.email = entity.email;
-      b.username = entity.username;
-      b.verified = entity.verified;
-      b.roles.addAll(entity.roles.map((r) => new RoleState.fromRoleEntity(r)));
-    });
-  }
 }
