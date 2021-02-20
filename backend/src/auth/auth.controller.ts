@@ -36,7 +36,8 @@ export class AuthController {
     if (authenticatedUser) {
       return new LoginResponse(authenticatedUser.user, undefined);
     }
-    return await this.authService.login(loginDto);
+    const result = await this.authService.login(loginDto);
+    return new LoginResponse(result.user, result.jwt);
   }
 
   @Post("/logout")

@@ -35,7 +35,7 @@ export class AuthService extends BaseService {
       AuthTokenEntity
     );
     const user = await userRepository.findOne({
-      where: { username: credentials.email },
+      where: { email: credentials.email },
     });
     if (
       !user ||
@@ -44,7 +44,10 @@ export class AuthService extends BaseService {
       throw new InvalidCredentials();
     }
     const token = await authTokenRepository.save(new AuthTokenEntity(user));
-    return { user, jwt: await this.jwtService.createJwt(token) };
+    return {
+      user: await this.prepareEntity(user),
+      jwt: await this.jwtService.createJwt(token),
+    };
   }
 
   public async logout(user: AuthenticatedUser) {
@@ -97,9 +100,11 @@ export class AuthService extends BaseService {
       )
     );
 
-    await this.storageService.saveFiles([profilePicture], patient);
+    if (profilePicture) {
+      await this.storageService.saveFiles([profilePicture], patient);
+    }
 
-    return patient;
+    return this.prepareEntity(patient);
   }
 
   public async registerDoctor(
@@ -136,6 +141,16 @@ export class AuthService extends BaseService {
 
     await this.storageService.saveFiles([profilePicture], doctor);
 
-    return doctor;
+    return this.prepareEntity(doctor);
+  }
+
+  private async prepareEntity(entity: UserEntity) {
+    if (entity instanceof DoctorEntity) {
+      entity.type = "DoctorEntity";
+    }
+    if (entity instanceof PatientEntity) {
+      entity.type = "PatientEntity";
+    }
+    return entity;
   }
 }

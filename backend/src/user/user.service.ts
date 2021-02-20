@@ -12,16 +12,4 @@ export class UserService extends BaseService {
   constructor(private dbService: DatabaseService) {
     super();
   }
-
-  @Authorize()
-  @RequiredPermissions({ resource: "user", operation: "get-by-id" })
-  public async getById(
-    id: string,
-    @Requester() user: UserEntity,
-    @AuthCb() authCb?: (owner?: string) => Promise<void>
-  ) {
-    await authCb!(id);
-    const userRepository = await this.dbService.getRepository(UserEntity);
-    return userRepository.findOne(id);
-  }
 }

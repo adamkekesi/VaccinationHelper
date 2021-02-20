@@ -13,7 +13,7 @@ class RestClient {
   static Future<dynamic> httpGet(String path,
       {SerializableObject query,
       DeserializerFunction responseDeserializer}) async {
-    var headers = {"Authorization": "Bearer " + AuthPersist.jwt ?? ""};
+    var headers = {"Authorization": "Bearer " + AuthPersist.jwt};
 
     var serializedQuery = _serializeQuery(query);
 
@@ -34,7 +34,7 @@ class RestClient {
       {SerializableObject query,
       SerializableObject body,
       DeserializerFunction responseDeserializer}) async {
-    var headers = {"Authorization": "Bearer " + AuthPersist.jwt ?? ""};
+    var headers = {"Authorization": "Bearer " + AuthPersist.jwt};
 
     var serializedQuery = _serializeQuery(query);
 
@@ -59,7 +59,7 @@ class RestClient {
       {SerializableObject query,
       SerializableObject body,
       DeserializerFunction responseDeserializer}) async {
-    var headers = {"Authorization": "Bearer " + AuthPersist.jwt ?? ""};
+    var headers = {"Authorization": "Bearer " + AuthPersist.jwt};
 
     var serializedQuery = _serializeQuery(query);
 
@@ -83,7 +83,7 @@ class RestClient {
   static Future<dynamic> httpDelete(String path,
       {SerializableObject query,
       DeserializerFunction responseDeserializer}) async {
-    var headers = {"Authorization": "Bearer " + AuthPersist.jwt ?? ""};
+    var headers = {"Authorization": "Bearer " + AuthPersist.jwt};
 
     var serializedQuery = _serializeQuery(query);
 

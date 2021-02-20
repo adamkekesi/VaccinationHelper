@@ -6,7 +6,7 @@ import 'package:vaccination_helper/core/settings/actions/load_settings_action.da
 class AuthPersist {
   static String get jwt {
     try {
-      return _prefs.getString("jwt");
+      return _prefs.getString("jwt") ?? "";
     } catch (e) {
       return "";
     }
@@ -14,7 +14,7 @@ class AuthPersist {
 
   static String get userId {
     try {
-      return _prefs.getString("userId");
+      return _prefs.getString("userId") ?? "";
     } catch (e) {
       return "";
     }
