@@ -23,7 +23,7 @@ isSuccessful: vm.state.loginState.isSuccessful,
 exception: vm.state.loginState.exception,
 payload: vm.state.loginState.payload,
 translator: vm.translator,
-onSent:vm.sendLogin */
+onSent:vm.sendLogin, payload:vm.state.loginState.payload */
               );
         });
   }
