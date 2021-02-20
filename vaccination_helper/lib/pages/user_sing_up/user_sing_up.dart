@@ -79,8 +79,7 @@ class _ButtonState extends State<UserSingUp>
   @override
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
@@ -95,7 +94,9 @@ class _ButtonState extends State<UserSingUp>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Form(
-              child: Column(children: [
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                 _buildNameField()/*
                 Container(
                     width: 300,
@@ -184,8 +185,8 @@ class _ButtonState extends State<UserSingUp>
             )
           ],
         ),
-      ),
     );
+
   }
 
   Widget _textfieldUi({String hintText, IconData icon}) {
