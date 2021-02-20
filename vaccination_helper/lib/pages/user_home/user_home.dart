@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
+import 'package:vaccination_helper/pages/doctor_search/doctor_search.dart';
 import 'package:vaccination_helper/pages/user_home/main.drawer.dart';
 
 class UserHome extends StatefulWidget {
@@ -34,7 +35,12 @@ class _LoginState extends State<UserHome> {
             children: [
               RaisedButton(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 70),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new DoctorSearch()));
+                },
                 color: Colors.cyan[500],
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
