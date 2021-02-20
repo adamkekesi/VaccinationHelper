@@ -2,13 +2,17 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
+import 'package:vaccination_helper/helpers/types.dart';
+import 'package:vaccination_helper/pages/account_type/account_type_connector.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/account_type/account_type.dart';
 import 'package:vaccination_helper/pages/login/login.dart';
 import 'package:vaccination_helper/pages/user_home/user_home.dart';
 
 class LandingPage extends StatelessWidget {
-  LandingPage({this.translator});
+  final BuildContextFunction jumpToLoginPage;
+
+  LandingPage({this.translator, this.jumpToLoginPage});
   Translator translator;
   @override
   Widget build(BuildContext context) {
@@ -30,10 +34,7 @@ class LandingPage extends StatelessWidget {
           children: [
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
-              onPressed: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => new Login()));
-              },
+              onPressed: () => jumpToLoginPage(context),
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -62,7 +63,7 @@ class LandingPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (context) => new AccountType()));
+                        builder: (context) => new AccountTypeConnector()));
               },
               color: Colors.cyan,
               shape: RoundedRectangleBorder(

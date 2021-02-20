@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
+import 'package:vaccination_helper/helpers/types.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/user_sing_up/user_sing_up.dart';
 
 class AccountType extends StatelessWidget {
-  AccountType({this.translator});
+  final BuildContextFunction jumpToPatient;
+
+  final BuildContextFunction jumpToDoctor;
+
+  AccountType({this.translator, this.jumpToDoctor, this.jumpToPatient});
   Translator translator;
   @override
   Widget build(BuildContext context) {
@@ -26,12 +31,7 @@ class AccountType extends StatelessWidget {
           children: [
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new UserSignUp()));
-              },
+              onPressed: () => jumpToPatient(context),
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -56,10 +56,7 @@ class AccountType extends StatelessWidget {
             ),
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
-              onPressed: () {
-                Navigator.push(context,
-                    new MaterialPageRoute(builder: (context) => new Loading()));
-              },
+              onPressed: () => jumpToDoctor(context),
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),

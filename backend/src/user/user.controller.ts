@@ -14,20 +14,4 @@ import { Authenticate } from "src/auth/decorator/authenticate.decorator";
 @Authenticate()
 export class UserController {
   constructor(private userService: UserService) {}
-
-  @Get("/:id")
-  @Protected()
-  public async getById(
-    @Param("id") id: string,
-    @User() user: AuthenticatedUser
-  ) {
-    const result = await this.userService.getById(id, user.user);
-    return result;
-  }
-
-  @Get("/")
-  @Protected()
-  public async getAllByFilters(@User() user: AuthenticatedUser) {
-    throw new NotImplementedException();
-  }
 }

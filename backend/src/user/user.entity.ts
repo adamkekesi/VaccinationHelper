@@ -53,6 +53,9 @@ export default class UserEntity {
   @OneToMany(() => TokenEntity, (token) => token.user)
   public tokens: Promise<TokenEntity[]>;
 
+  @JsonProperty()
+  public type: "PatientEntity" | "DoctorEntity";
+
   constructor(
     email: string,
     fullName: string,

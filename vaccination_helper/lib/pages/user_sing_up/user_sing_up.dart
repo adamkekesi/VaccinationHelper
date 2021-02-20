@@ -6,56 +6,8 @@ import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-Widget _buildNameField() {
-  return TextField(
-    decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue),
-          borderRadius: BorderRadius.all(Radius.circular(100)),
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue),
-            borderRadius: BorderRadius.all(Radius.circular(100))),
-        prefixIcon: Icon(Icons.account_circle),
-        hintText: "Név"),
-  );
-}
 
-Widget _buildAddressField() {
-  return null;
-}
 
-Widget _buildZipcodeField() {
-  return null;
-}
-
-Widget _buildCityField() {
-  return null;
-}
-
-Widget _buildDateOfBirthField() {
-  return null;
-}
-
-Widget _buildEmailField() {
-  return null;
-}
-
-Widget _buildIdentityCardNumberField() {
-  return null;
-}
-
-Widget _buildSsnField() {
-  return null;
-}
-
-Widget _buildPhoneNumberField() {
-  return null;
-}
-
-Widget _buildPasswordField() {
-  return null;
-}
 
 typedef void SendFunction();
 
@@ -105,6 +57,7 @@ class _UserSignUpState extends State<UserSignUp>
   double _scale;
   @override
   void initState() {
+
     _controller = AnimationController(
         vsync: this,
         duration: Duration(milliseconds: 200),
@@ -133,6 +86,7 @@ class _UserSignUpState extends State<UserSignUp>
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Form(
+            key: _formKey,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               _buildNameField() /*
@@ -226,6 +180,71 @@ class _UserSignUpState extends State<UserSignUp>
       ),
     );
   }
+  Widget _buildNameField() {
+    return TextFormField(
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue),
+              borderRadius: BorderRadius.all(Radius.circular(100))),
+          border:  OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.all(Radius.circular(100))),
+          prefixIcon: Icon(Icons.account_circle),
+          hintText: "Név"),
+      validator: (String value){
+        if(value.isEmpty){
+          return 'Name is required.';
+        }
+        return null;
+      },
+      onSaved: (String value){payload.fullName = value;},
+
+    );
+  }
+
+  Widget _buildAddressField() {
+    return null;
+  }
+
+  Widget _buildZipcodeField() {
+    return null;
+  }
+
+  Widget _buildCityField() {
+    return null;
+  }
+
+  Widget _buildDateOfBirthField() {
+    return null;
+  }
+
+  Widget _buildEmailField() {
+    return null;
+  }
+
+  Widget _buildIdentityCardNumberField() {
+    return null;
+  }
+
+  Widget _buildSsnField() {
+    return null;
+  }
+
+  Widget _buildPhoneNumberField() {
+    return null;
+  }
+
+  Widget _buildPasswordField() {
+    return null;
+  }
+
+
+
+
 
   Widget _textfieldUi({String hintText, IconData icon}) {
     return TextField(
@@ -258,7 +277,14 @@ class _UserSignUpState extends State<UserSignUp>
         ),
       ));
   void _onTapDown(TapDownDetails details) {
+
     _controller.forward();
+    if(!_formKey.currentState.validate()){
+      return;
+    }
+    _formKey.currentState.save();
+    //use the data
+    print(payload.fullName);
   }
 
   void _onTapUp(TapUpDetails details) {
