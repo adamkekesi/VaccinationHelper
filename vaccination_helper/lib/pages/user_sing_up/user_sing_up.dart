@@ -3,16 +3,6 @@ import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 
-String name;
-String address;
-String zipCode;
-String city;
-String dateOfBirth;
-String email;
-String identityCardNumber;
-String ssn;
-String phoneNumber;
-String password;
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -67,7 +57,7 @@ Widget _buildPasswordField() {
   return null;
 }
 
-typedef void SendFunction(PatientRegisterDto payload);
+typedef void SendFunction();
 
 class UserSignUp extends StatefulWidget {
   // are we currently waiting for the server's response?
@@ -92,12 +82,26 @@ class UserSignUp extends StatefulWidget {
       this.payload});
 
   @override
-  _ButtonState createState() => _ButtonState();
+  _UserSignUpState createState() => _UserSignUpState(isLoading, isSuccessful, exception, onSent, translator, payload);
 }
 
-class _ButtonState extends State<UserSignUp>
+class _UserSignUpState extends State<UserSignUp>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
+  // are we currently waiting for the server's response?
+  final bool isLoading;
+  // should we show a success message?
+  final bool isSuccessful;
+  // if the registration failed, this will be the error
+  final BaseException exception;
+  // function to send the registration to the server
+  final SendFunction onSent;
+
+  final Translator translator;
+
+  final PatientRegisterDto payload;
+
+  _UserSignUpState(this.isLoading, this.isSuccessful, this.exception, this.onSent, this.translator, this.payload){}
   double _scale;
   @override
   void initState() {
