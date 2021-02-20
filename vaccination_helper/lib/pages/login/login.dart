@@ -65,14 +65,15 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     suffixIcon: IconButton(
-                      icon: Icon(
-                          secureText ? Icons.remove_red_eye : Icons.security),
-                      onPressed: () {
-                        setState(() {
-                          secureText = !secureText;
-                        });
-                      },
-                    )),
+                icon: Icon(
+                secureText ? Icons.remove_red_eye : Icons.security),
+                onPressed: () {
+                  setState(() {
+                    secureText = !secureText;
+                  });
+                },
+              )
+                ),
                 obscureText: secureText,
               ),
             ),

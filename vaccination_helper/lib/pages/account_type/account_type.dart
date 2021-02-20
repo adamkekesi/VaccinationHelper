@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/helpers/types.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
-import 'package:vaccination_helper/pages/user_sing_up/user_sing_up.dart';
+import 'package:vaccination_helper/pages/user_sing_up/user_sign_up.dart';
 
 class AccountType extends StatelessWidget {
   final BuildContextFunction jumpToPatient;

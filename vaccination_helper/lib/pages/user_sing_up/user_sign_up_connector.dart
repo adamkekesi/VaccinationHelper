@@ -7,7 +7,7 @@ import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
-import 'package:vaccination_helper/pages/user_sing_up/user_sing_up.dart';
+import 'package:vaccination_helper/pages/user_sing_up/user_sign_up.dart';
 
 part 'user_sign_up_connector.g.dart';
 
@@ -73,6 +73,9 @@ abstract class UserSignUpState
   }
 }
 
-const Map<String, Map<String, String>> translationOverrides = {};
+const Map<String, Map<String, String>> translationOverrides = {"key":{
+  "en":"English version",
+  "hu":"magyar változat"
+}};
 
 typedef void PayloadSendFunction(PatientRegisterDto payload);
