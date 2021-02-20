@@ -22,6 +22,7 @@ class UserSignUpConnector extends StatelessWidget {
             isSuccessful: vm.state.patientState.isSuccessful,
             exception: vm.state.patientState.exception,
             onSent: vm.sendRequest,
+            translator: vm.translator,
           );
         });
   }

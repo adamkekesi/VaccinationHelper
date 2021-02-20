@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
+import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 
 String name;
@@ -78,7 +79,14 @@ class UserSignUp extends StatefulWidget {
   // function to send the registration to the server
   final SendFunction onSent;
 
-  UserSignUp({this.isLoading, this.isSuccessful, this.exception, this.onSent});
+  final Translator translator;
+
+  UserSignUp(
+      {this.isLoading,
+      this.isSuccessful,
+      this.exception,
+      this.onSent,
+      this.translator});
 
   @override
   _ButtonState createState() => _ButtonState();
