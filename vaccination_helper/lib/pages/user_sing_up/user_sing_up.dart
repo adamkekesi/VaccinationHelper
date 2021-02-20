@@ -81,12 +81,15 @@ class UserSignUp extends StatefulWidget {
 
   final Translator translator;
 
+  final PatientRegisterDto payload;
+
   UserSignUp(
       {this.isLoading,
       this.isSuccessful,
       this.exception,
       this.onSent,
-      this.translator});
+      this.translator,
+      this.payload});
 
   @override
   _ButtonState createState() => _ButtonState();
