@@ -21,7 +21,7 @@ class UserSignUpConnector extends StatelessWidget {
             isLoading: vm.state.patientState.isLoading,
             isSuccessful: vm.state.patientState.isSuccessful,
             exception: vm.state.patientState.exception,
-            onSent: vm.sendRequest,
+            onSent: () => vm.sendRequest(vm.state.patientState.payload),
             translator: vm.translator,
           );
         });
@@ -49,7 +49,7 @@ class UserSignUpViewModel extends Vm {
 
   final Translator translator;
 
-  final SendFunction sendRequest;
+  final PayloadSendFunction sendRequest;
 
   UserSignUpViewModel(this.language, this.state, this.sendRequest)
       : translator = new Translator(language, translationOverrides),
@@ -73,3 +73,5 @@ abstract class UserSignUpState
 }
 
 const Map<String, Map<String, String>> translationOverrides = {};
+
+typedef void PayloadSendFunction(PatientRegisterDto payload);
