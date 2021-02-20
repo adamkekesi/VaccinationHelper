@@ -3,6 +3,7 @@ import 'package:vaccination_helper/core/auth/auth_persist.dart';
 import 'package:vaccination_helper/core/auth/auth_service.dart';
 import 'package:vaccination_helper/core/auth/dtos/doctor_register_dto.dart';
 import 'package:vaccination_helper/core/auth/state/auth_state.dart';
+import 'package:vaccination_helper/core/auth/state/doctor_register_state.dart';
 import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 import 'package:vaccination_helper/helpers/exceptions/unknown_exception.dart';
@@ -11,6 +12,11 @@ class RegisterDoctorAction extends ReduxAction<AppState> {
   DoctorRegisterDto payload;
 
   RegisterDoctorAction(this.payload);
+
+  @override
+  void before() {
+    dispatch(new StartDoctorRegisterLoadingAction());
+  }
 
   @override
   Future<AppState> reduce() async {
@@ -61,5 +67,12 @@ class HideLoginFeedbackAction extends ReduxAction<AppState> {
   Future<AppState> reduce() async {
     return state
         .changeDoctorRegisterState(state.doctorRegisterState.clearFeedback());
+  }
+}
+
+class OverrideDoctorStateAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state.changeDoctorRegisterState(new DoctorRegisterState.create());
   }
 }

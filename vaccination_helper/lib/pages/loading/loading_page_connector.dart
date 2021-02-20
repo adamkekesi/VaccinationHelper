@@ -6,6 +6,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/login_singup/login_singup.dart';
+import 'package:vaccination_helper/pages/user_sing_up/user_sign_up_connector.dart';
 
 part 'loading_page_connector.g.dart';
 
@@ -17,8 +18,10 @@ class LoadingPageConnector extends StatelessWidget {
         builder: (BuildContext context, LoadingPageViewModel vm) {
           if (vm.state.isAppLoaded) {
             Future.delayed(new Duration(seconds: 2), () {
-              return Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => LandingPage()));
+              return Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserSignUpConnector()));
             });
           }
           return Loading();

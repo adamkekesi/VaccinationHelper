@@ -64,12 +64,12 @@ Widget _buildPasswordField() {
   return null;
 }
 
-class UserSingUp extends StatefulWidget {
+class UserSignUp extends StatefulWidget {
   @override
   _ButtonState createState() => _ButtonState();
 }
 
-class _ButtonState extends State<UserSingUp>
+class _ButtonState extends State<UserSignUp>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   double _scale;
@@ -89,24 +89,23 @@ class _ButtonState extends State<UserSingUp>
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'Páciens adatai',
-            style: TextStyle(fontFamily: 'Comfortaa'),
-          ),
-          centerTitle: true,
-          elevation: 10,
-          backgroundColor: Colors.cyan,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          'Páciens adatai',
+          style: TextStyle(fontFamily: 'Comfortaa'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Form(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                _buildNameField()/*
+        centerTitle: true,
+        elevation: 10,
+        backgroundColor: Colors.cyan,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Form(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              _buildNameField() /*
                 Container(
                     width: 300,
                     height: 60,
@@ -177,26 +176,25 @@ class _ButtonState extends State<UserSingUp>
                     child: _textfieldUi(
                         hintText: "Jelszó újra", icon: Icons.lock_open)),
               */
-              ]),
-            ),
-            Text('tap on the button below'),
-            SizedBox(
-              height: 20.0,
-            ),
-            Center(
-              child: GestureDetector(
-                onTapDown: _onTapDown,
-                onTapUp: _onTapUp,
-                child: Transform.scale(
-                  scale: _scale,
-                  child: _animatedButtonUi,
-                ),
+            ]),
+          ),
+          Text('tap on the button below'),
+          SizedBox(
+            height: 20.0,
+          ),
+          Center(
+            child: GestureDetector(
+              onTapDown: _onTapDown,
+              onTapUp: _onTapUp,
+              child: Transform.scale(
+                scale: _scale,
+                child: _animatedButtonUi,
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
+      ),
     );
-
   }
 
   Widget _textfieldUi({String hintText, IconData icon}) {

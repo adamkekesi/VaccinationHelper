@@ -19,8 +19,10 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   SettingsState get settingsState;
 
+  @nullable
   DoctorRegisterState get doctorRegisterState;
 
+  @nullable
   PatientRegisterState get patientRegisterState;
 
   bool get isAppLoaded;
@@ -37,6 +39,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
       b.jwtloginState.replace(new LoginState.initial());
       b.authState.replace(new AuthState.initial());
       b.settingsState.replace(new SettingsState.initial());
+      b.patientRegisterState.replace(new PatientRegisterState.create());
       b.isAppLoaded = false;
     });
   }

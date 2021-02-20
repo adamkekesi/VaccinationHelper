@@ -30,7 +30,7 @@ class AccountType extends StatelessWidget {
                 Navigator.push(
                     context,
                     new MaterialPageRoute(
-                        builder: (context) => new UserSingUp()));
+                        builder: (context) => new UserSignUp()));
               },
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(

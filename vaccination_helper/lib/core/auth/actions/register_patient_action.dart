@@ -1,9 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:vaccination_helper/core/auth/auth_persist.dart';
 import 'package:vaccination_helper/core/auth/auth_service.dart';
-import 'package:vaccination_helper/core/auth/dtos/doctor_register_dto.dart';
 import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/auth/state/auth_state.dart';
+import 'package:vaccination_helper/core/auth/state/patient_register_state.dart';
 import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 import 'package:vaccination_helper/helpers/exceptions/unknown_exception.dart';
@@ -12,6 +12,11 @@ class RegisterPatientAction extends ReduxAction<AppState> {
   PatientRegisterDto payload;
 
   RegisterPatientAction(this.payload);
+
+  @override
+  void before() {
+    dispatch(new StartPatientRegisterLoadingAction());
+  }
 
   @override
   Future<AppState> reduce() async {
@@ -33,16 +38,16 @@ class RegisterPatientAction extends ReduxAction<AppState> {
       } else {
         error = new UnknownException();
       }
-      dispatch(new DoctorRegistrationFailedAction(error));
+      dispatch(new PatientRegistrationFailedAction(error));
       throw error;
     }
   }
 }
 
-class DoctorRegistrationFailedAction extends ReduxAction<AppState> {
+class PatientRegistrationFailedAction extends ReduxAction<AppState> {
   BaseException exception;
 
-  DoctorRegistrationFailedAction(this.exception);
+  PatientRegistrationFailedAction(this.exception);
 
   @override
   AppState reduce() {
@@ -51,7 +56,7 @@ class DoctorRegistrationFailedAction extends ReduxAction<AppState> {
   }
 }
 
-class StartDoctorRegisterLoadingAction extends ReduxAction<AppState> {
+class StartPatientRegisterLoadingAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     return state
@@ -64,5 +69,20 @@ class HideLoginFeedbackAction extends ReduxAction<AppState> {
   Future<AppState> reduce() async {
     return state
         .changePatientRegisterState(state.patientRegisterState.clearFeedback());
+  }
+}
+
+class OverridePatientStateAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state.changePatientRegisterState(new PatientRegisterState.create());
+  }
+}
+
+class StopAction extends ReduxAction<AppState> {
+  @override
+  AppState reduce() {
+    return state
+        .changePatientRegisterState(state.patientRegisterState.setResult(null));
   }
 }
