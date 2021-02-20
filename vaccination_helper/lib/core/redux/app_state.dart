@@ -1,9 +1,11 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/auth/state/auth_state.dart';
 import 'package:vaccination_helper/core/auth/responses/login_response.dart';
 import 'package:vaccination_helper/core/auth/state/doctor_register_state.dart';
 import 'package:vaccination_helper/core/auth/state/login_state.dart';
+import 'package:vaccination_helper/core/auth/state/patient_register_state.dart';
 import 'package:vaccination_helper/core/settings/state/settings_state.dart';
 
 part 'app_state.g.dart';
@@ -18,6 +20,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   SettingsState get settingsState;
 
   DoctorRegisterState get doctorRegisterState;
+
+  PatientRegisterState get patientRegisterState;
 
   bool get isAppLoaded;
 
@@ -58,6 +62,12 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   AppState changeDoctorRegisterState(DoctorRegisterState state) {
     return this.rebuild((b) {
       b.doctorRegisterState.replace(state);
+    });
+  }
+
+  AppState changePatientRegisterState(PatientRegisterState state) {
+    return this.rebuild((b) {
+      b.patientRegisterState.replace(state);
     });
   }
 
