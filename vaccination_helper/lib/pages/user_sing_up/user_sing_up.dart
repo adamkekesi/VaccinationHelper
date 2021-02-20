@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
+import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 
 String name;
 String address;
@@ -64,7 +66,20 @@ Widget _buildPasswordField() {
   return null;
 }
 
+typedef void SendFunction(PatientRegisterDto payload);
+
 class UserSignUp extends StatefulWidget {
+  // are we currently waiting for the server's response?
+  final bool isLoading;
+  // should we show a success message?
+  final bool isSuccessful;
+  // if the registration failed, this will be the error
+  final BaseException exception;
+  // function to send the registration to the server
+  final SendFunction onSent;
+
+  UserSignUp({this.isLoading, this.isSuccessful, this.exception, this.onSent});
+
   @override
   _ButtonState createState() => _ButtonState();
 }

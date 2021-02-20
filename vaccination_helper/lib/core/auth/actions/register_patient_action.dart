@@ -78,11 +78,3 @@ class OverridePatientStateAction extends ReduxAction<AppState> {
     return state.changePatientRegisterState(new PatientRegisterState.create());
   }
 }
-
-class StopAction extends ReduxAction<AppState> {
-  @override
-  AppState reduce() {
-    return state
-        .changePatientRegisterState(state.patientRegisterState.setResult(null));
-  }
-}

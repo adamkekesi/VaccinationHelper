@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart' hide Builder;
 import 'package:vaccination_helper/core/auth/actions/register_patient_action.dart';
+import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/auth/state/patient_register_state.dart';
 import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:built_value/built_value.dart';
@@ -16,7 +17,12 @@ class UserSignUpConnector extends StatelessWidget {
     return StoreConnector<AppState, UserSignUpViewModel>(
         vm: () => new UserSignUpVmFactory(this),
         builder: (BuildContext context, UserSignUpViewModel vm) {
-          return UserSignUp();
+          return UserSignUp(
+            isLoading: vm.state.patientState.isLoading,
+            isSuccessful: vm.state.patientState.isSuccessful,
+            exception: vm.state.patientState.exception,
+            onSent: vm.sendRequest,
+          );
         });
   }
 }
@@ -27,15 +33,11 @@ class UserSignUpVmFactory extends VmFactory<AppState, UserSignUpConnector> {
   @override
   UserSignUpViewModel fromStore() {
     return new UserSignUpViewModel(state.settingsState.language,
-        new UserSignUpState.create(state.patientRegisterState), _start, _stop);
+        new UserSignUpState.create(state.patientRegisterState), sendRequest);
   }
 
-  void _start() {
-    dispatch(new StartPatientRegisterLoadingAction());
-  }
-
-  void _stop() {
-    dispatch(new StopAction());
+  void sendRequest(PatientRegisterDto payload) async {
+    await dispatchFuture(new RegisterPatientAction(payload));
   }
 }
 
@@ -46,21 +48,11 @@ class UserSignUpViewModel extends Vm {
 
   final Translator translator;
 
-  final Function start;
+  final SendFunction sendRequest;
 
-  final Function stop;
-
-  UserSignUpViewModel(this.language, this.state, this.start, this.stop)
+  UserSignUpViewModel(this.language, this.state, this.sendRequest)
       : translator = new Translator(language, translationOverrides),
         super(equals: [state, language]);
-
-  void test() {
-    if (state.patientState.isLoading) {
-      stop();
-    } else {
-      start();
-    }
-  }
 }
 
 abstract class UserSignUpState
