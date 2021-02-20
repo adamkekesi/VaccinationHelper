@@ -31,10 +31,8 @@ class LandingPage extends StatelessWidget {
             RaisedButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new MyHomePage()));
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => new Login()));
               },
               color: Colors.cyan[500],
               shape: RoundedRectangleBorder(
