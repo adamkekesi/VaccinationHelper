@@ -13,22 +13,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: new Color(0xff052b49),
       ),
-      home: MyHomePage(),
+      home: UserPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class UserPage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: Text("Főoldal"),
         centerTitle: true,
         elevation: 10,
         backgroundColor: Colors.cyan,

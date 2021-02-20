@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/account_type/account_type.dart';
+import 'package:vaccination_helper/pages/user_home/user_home.dart';
+import 'package:vaccination_helper/pages/user_home/user.dart';
 
 class Login extends StatefulWidget {
   Login({this.translator});
@@ -48,7 +50,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -74,6 +76,27 @@ class _LoginState extends State<Login> {
                       },
                     )),
                 obscureText: secureText,
+              ),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            RaisedButton(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 90),
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => new Home()));
+              },
+              color: Colors.cyan[500],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
+              child: Text(
+                "Bejelentkezés",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Comfortaa',
+                  fontSize: 25,
+                ),
               ),
             ),
           ],

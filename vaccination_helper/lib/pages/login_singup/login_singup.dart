@@ -5,7 +5,7 @@ import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/account_type/account_type.dart';
 import 'package:vaccination_helper/pages/login/login.dart';
-import 'package:vaccination_helper/pages/test.dart';
+import 'package:vaccination_helper/pages/user_home/user_home.dart';
 
 class LandingPage extends StatelessWidget {
   LandingPage({this.translator});
