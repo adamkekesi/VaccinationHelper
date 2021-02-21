@@ -28,7 +28,7 @@ class _DocState extends State<Doc> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Nyilatkozat',
+          'Form',
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,
@@ -107,7 +107,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Volt-e valamilyen akut betegségeaz elmúlt 4 hétben?',
+                  'Volt-e valamilyen akut betegsége az elmúlt 4 hétben?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -172,7 +172,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Szenved-e vérképzőszervi betegségben, fokozott vérzékenységben?',
+                  'Szenved-e vérképző szervi betegségben, fokozott vérzékenységben?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -185,7 +185,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Kapott-e védőoltást az elmúlt 2hétben?',
+                  'Kapott-e védőoltást az elmúlt 2 hétben?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -254,10 +254,11 @@ class _DocState extends State<Doc> {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: Text('Biztos elmenti a változtatásokat?'),
+                            title: Text(
+                                'Are you sure you want to save the changes?'),
                             actions: <Widget>[
-                              FlatButton(onPressed: () {}, child: Text('Igen')),
-                              FlatButton(onPressed: () {}, child: Text('Nem'))
+                              FlatButton(onPressed: () {}, child: Text('Yes')),
+                              FlatButton(onPressed: () {}, child: Text('No'))
                             ],
                           ));
                 },
@@ -265,7 +266,7 @@ class _DocState extends State<Doc> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Mentés",
+                  "Save",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',
