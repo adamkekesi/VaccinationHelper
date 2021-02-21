@@ -8,7 +8,7 @@ class DoctorSearch extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Search a Doctor",
+          "Search for your Doctor",
           style: TextStyle(
             fontFamily: 'Comfortaa',
           ),
@@ -30,11 +30,18 @@ class DoctorSearch extends StatelessWidget {
 
 class DataSearch extends SearchDelegate<String> {
   final doctors = [
-    'Dr. Faszsetudja',
-    'Dr. Igen',
-    'Dr. Wau',
-    'Dr. Zsidó',
-    'Dr. Meghalsz'
+    'Dr. Poal ',
+    'Dr. Adam',
+    'Dr. Peter',
+    'Dr. John',
+    'Dr. William',
+    'Dr. David',
+    'Dr. Joseph',
+    'Dr. Ethan',
+    'Dr. Michael',
+    'Dr. Jacob',
+    'Dr. James',
+    'Dr. Harry',
   ];
   @override
   List<Widget> buildActions(BuildContext context) {

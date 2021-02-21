@@ -21,7 +21,7 @@ class _LoginState extends State<UserHome> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Főoldal',
+          'Home',
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,
@@ -35,7 +35,7 @@ class _LoginState extends State<UserHome> {
             mainAxisSize: MainAxisSize.min,
             children: [
               RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 70),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -46,7 +46,7 @@ class _LoginState extends State<UserHome> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Orvos keresése",
+                  "Search for your Doctor",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',
@@ -55,10 +55,10 @@ class _LoginState extends State<UserHome> {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: 60,
               ),
               RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 35),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 130),
                 onPressed: () {
                   Navigator.push(context,
                       new MaterialPageRoute(builder: (context) => new Doc()));
@@ -67,7 +67,7 @@ class _LoginState extends State<UserHome> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Nyilatkozat kitőltése",
+                  "Form ",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',

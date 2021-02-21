@@ -40,7 +40,7 @@ class LandingPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Bejelentkezés",
+                  "Log In",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',
@@ -52,14 +52,14 @@ class LandingPage extends StatelessWidget {
                 height: 40,
               ),
               Text(
-                "Vagy",
+                "Or",
                 style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
               ),
               SizedBox(
                 height: 40,
               ),
               RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 80),
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -70,7 +70,7 @@ class LandingPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Felhasználó létrehozása",
+                  "Sing Up",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',

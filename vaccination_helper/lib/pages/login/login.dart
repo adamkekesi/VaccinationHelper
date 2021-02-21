@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Bejelentkezés',
+          'Log In',
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,
@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: 'Email cím',
+                    labelText: 'Email address',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0)),
                   ),
@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                     return null;
                   },
                   decoration: InputDecoration(
-                      labelText: 'Jelszó',
+                      labelText: 'Passworld',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Bejelentkezés",
+                  "Log In",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',

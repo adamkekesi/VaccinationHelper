@@ -47,7 +47,7 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: Text(
-              'Profil',
+              'Profile',
               style: TextStyle(fontFamily: 'Comfortaa', fontSize: 18),
             ),
             onTap: null,
@@ -55,7 +55,7 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text(
-              'Beállítások',
+              'Settings',
               style: TextStyle(fontFamily: 'Comfortaa', fontSize: 18),
             ),
             onTap: null,
@@ -63,7 +63,7 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.arrow_back),
             title: Text(
-              'Kijelentkezés',
+              'Log Out',
               style: TextStyle(fontFamily: 'Comfortaa', fontSize: 18),
             ),
             onTap: null,
