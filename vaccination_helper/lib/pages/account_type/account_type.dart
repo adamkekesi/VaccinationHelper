@@ -18,7 +18,7 @@ class AccountType extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Felhasználói típusok',
+          'Type of Users',
           style: TextStyle(fontFamily: 'Comfortaa'),
         ),
         centerTitle: true,
@@ -36,7 +36,7 @@ class AccountType extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: Text(
-                "Páciens",
+                "Patient",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Comfortaa',
@@ -48,7 +48,7 @@ class AccountType extends StatelessWidget {
               height: 40,
             ),
             Text(
-              "Vagy",
+              "Or",
               style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
             ),
             SizedBox(
@@ -61,7 +61,7 @@ class AccountType extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: Text(
-                "Orvos",
+                "Doctor",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Comfortaa',
@@ -73,7 +73,7 @@ class AccountType extends StatelessWidget {
               height: 40,
             ),
             Text(
-              "Vagy",
+              "Or",
               style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
             ),
             SizedBox(
@@ -87,7 +87,7 @@ class AccountType extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(30))),
               child: Column(children: [
                 Text(
-                  "Adminisztrátor",
+                  "Administartor",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',
@@ -95,7 +95,7 @@ class AccountType extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "(*hamarosan)",
+                  "(*comming soon)",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Comfortaa',

@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                     return null;
                   },
                   decoration: InputDecoration(
-                    labelText: 'Email address',
+                    labelText: 'Email',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0)),
                   ),
