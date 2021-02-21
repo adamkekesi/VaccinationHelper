@@ -32,6 +32,9 @@ class ApiResponse {
       return data;
     }
     try {
+      if (data is List) {
+        return (data as List).map((e) => deserializer(e));
+      }
       return deserializer(data);
     } catch (e) {
       throw new UnknownException();

@@ -12,21 +12,6 @@ import { PatientService } from "./patient.service";
 @Controller("patient")
 export class PatientController {
   constructor(private patientService: PatientService) {}
-
-  @Get("/:id")
-  @Authenticate()
-  @Protected()
-  public async getPatientById(
-    @Param("id") id: string,
-    @User() authenticatedUser: AuthenticatedUser
-  ) {
-    const result = await this.patientService.getPatientById(
-      id,
-      authenticatedUser.user
-    );
-    return new Response({ data: result });
-  }
-
   @Put("/change-home-doctor")
   @Authenticate()
   @Protected()
@@ -52,6 +37,20 @@ export class PatientController {
     const result = await this.patientService.setConsentForm(
       id,
       payload,
+      authenticatedUser.user
+    );
+    return new Response({ data: result });
+  }
+
+  @Get("/:id")
+  @Authenticate()
+  @Protected()
+  public async getPatientById(
+    @Param("id") id: string,
+    @User() authenticatedUser: AuthenticatedUser
+  ) {
+    const result = await this.patientService.getPatientById(
+      id,
       authenticatedUser.user
     );
     return new Response({ data: result });

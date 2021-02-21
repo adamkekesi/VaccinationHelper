@@ -14,20 +14,6 @@ import { VaccinationService } from "./vaccination.service";
 export class VaccinationController {
   constructor(private vaccinationService: VaccinationService) {}
 
-  @Post("/:id")
-  @Authenticate()
-  @Protected()
-  public async requestVaccination(
-    @Param("id") id: string,
-    @User() authenticatedUser: AuthenticatedUser
-  ) {
-    var result = await this.vaccinationService.requestVaccination(
-      id,
-      authenticatedUser.user
-    );
-    return new Response({ data: result });
-  }
-
   @Put("/choose-vaccinator")
   @Authenticate()
   @Protected()
@@ -77,7 +63,16 @@ export class VaccinationController {
     @Param("id") id: string,
     @User() authenticatedUser: AuthenticatedUser
   ) {
-    var result = await this.vaccinationService.cancelAppointment(
+    await this.vaccinationService.cancelAppointment(id, authenticatedUser.user);
+  }
+  @Post("/:id")
+  @Authenticate()
+  @Protected()
+  public async requestVaccination(
+    @Param("id") id: string,
+    @User() authenticatedUser: AuthenticatedUser
+  ) {
+    var result = await this.vaccinationService.requestVaccination(
       id,
       authenticatedUser.user
     );

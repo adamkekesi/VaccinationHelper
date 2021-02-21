@@ -45,7 +45,7 @@ class RawError {
 
   BaseException deserialize() {
     if (type == null || !_errorTypes.containsKey(type)) {
-      return new UnknownException();
+      return new UnknownException.fromType(type);
     }
     var deserializer = _errorTypes[type];
     try {

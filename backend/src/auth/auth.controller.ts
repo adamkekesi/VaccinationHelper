@@ -58,8 +58,8 @@ export class AuthController {
   }
 
   @Post("/register-patient")
-  @UseInterceptors(UploadCleanupInterceptor)
-  @BeforeSerialization(FileInterceptor("profilePicture"))
+  /* @UseInterceptors(UploadCleanupInterceptor)
+  @BeforeSerialization(FileInterceptor("profilePicture")) */
   public async registerPatient(
     @Body() registerDto: PatientRegisterDto,
     @UploadedFile() file: Express.Multer.File
@@ -74,8 +74,8 @@ export class AuthController {
   }
 
   @Post("/register-doctor")
-  @UseInterceptors(UploadCleanupInterceptor)
-  @BeforeSerialization(FileInterceptor("profilePicture"))
+  /* @UseInterceptors(UploadCleanupInterceptor)
+  @BeforeSerialization(FileInterceptor("profilePicture")) */
   public async registerDoctor(
     @Body() registerDto: DoctorRegisterDto,
     @UploadedFile() file: Express.Multer.File

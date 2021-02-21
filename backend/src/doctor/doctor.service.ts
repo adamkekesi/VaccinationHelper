@@ -50,6 +50,7 @@ export class DoctorService extends BaseService {
       where: {
         isHomeDoctor: true,
       },
+      relations: ["doctorPatientConnections"],
     });
 
     return map(
@@ -125,18 +126,7 @@ export class DoctorService extends BaseService {
     }
 
     delete entity.doctorPatientConnections;
-
-    const isRequesterAPatient = entity.doctorPatientConnections.some(
-      (c) => c.isAccepted && c.patient.id === requester.id
-    );
-    const isRequesterAHomeDoctor = requester.roleNames.includes("homeDoctor");
-
-    if (isRequesterAPatient || isRequesterAHomeDoctor) {
-      return entity;
-    }
-
-    delete entity.email;
-    delete entity.phoneNumber;
+    delete entity.coordinatedVaccinations;
     return entity;
   }
 }

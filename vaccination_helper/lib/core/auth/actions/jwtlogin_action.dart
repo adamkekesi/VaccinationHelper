@@ -39,7 +39,7 @@ class JwtloginAction extends ReduxAction<AppState> {
         error = new UnknownException();
       }
       dispatchFuture(new JwtloginFailedAction(error));
-      throw error;
+      return null;
     }
   }
 

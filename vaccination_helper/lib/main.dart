@@ -18,7 +18,7 @@ class AppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
-      child: VaccinationApp(),
+      child: UserExceptionDialog(child: VaccinationApp()),
       store: store,
     );
   }

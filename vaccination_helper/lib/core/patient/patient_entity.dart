@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:vaccination_helper/core/auth/vaccination/vaccination_entity.dart';
+import 'package:vaccination_helper/core/doctor/doctor_entity.dart';
 import 'package:vaccination_helper/core/user/user_entity.dart';
 import 'package:vaccination_helper/core/role/entity/role_entity.dart';
 
@@ -12,6 +14,10 @@ class PatientEntity extends UserEntity {
   DateTime dateOfBirth;
   String identityCardNumber;
   String ssn;
+
+  DoctorPatientConnectionEntity doctorPatientConnection;
+
+  List<VaccinationEntity> vaccinationsInProgress;
 
   PatientEntity();
 

@@ -9,22 +9,6 @@ import { DoctorService } from "./doctor.service";
 @Controller("doctor")
 export class DoctorController {
   constructor(private doctorService: DoctorService) {}
-
-  @Get("/:id")
-  @Authenticate()
-  @Protected()
-  public async getDoctorById(
-    @Param("id") id: string,
-    @User() authenticatedUser: AuthenticatedUser
-  ) {
-    const result = await this.doctorService.getDoctorById(
-      id,
-      authenticatedUser.user
-    );
-
-    return new Response({ data: result });
-  }
-
   @Get("/home-doctors")
   @Authenticate()
   @Protected()
@@ -72,5 +56,20 @@ export class DoctorController {
     @Param("connId") connId: string
   ) {
     await this.doctorService.deleteConnection(connId, authenticatedUser.user);
+  }
+
+  @Get("/:id")
+  @Authenticate()
+  @Protected()
+  public async getDoctorById(
+    @Param("id") id: string,
+    @User() authenticatedUser: AuthenticatedUser
+  ) {
+    const result = await this.doctorService.getDoctorById(
+      id,
+      authenticatedUser.user
+    );
+
+    return new Response({ data: result });
   }
 }
