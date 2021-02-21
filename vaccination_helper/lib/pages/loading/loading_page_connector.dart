@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart' hide Builder;
+import 'package:vaccination_helper/core/auth/state/auth_state.dart';
 import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
@@ -7,6 +8,7 @@ import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/pages/loading/loading.dart';
 import 'package:vaccination_helper/pages/login_singup/login_signup_connector.dart';
 import 'package:vaccination_helper/pages/login_singup/login_singup.dart';
+import 'package:vaccination_helper/pages/user_home/user_home_connector.dart';
 import 'package:vaccination_helper/pages/user_sing_up/user_sign_up_connector.dart';
 
 part 'loading_page_connector.g.dart';
@@ -19,10 +21,13 @@ class LoadingPageConnector extends StatelessWidget {
         builder: (BuildContext context, LoadingPageViewModel vm) {
           if (vm.state.isAppLoaded) {
             Future.delayed(new Duration(seconds: 2), () {
-              return Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LoginSignupConnector()));
+              return Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                if (vm.state.authState.user != null) {
+                  return UserHomeConnector();
+                }
+                return LoginSignupConnector();
+              }));
             });
           }
           return Loading();
@@ -36,7 +41,7 @@ class LoadingPageVmFactory extends VmFactory<AppState, LoadingPageConnector> {
   @override
   LoadingPageViewModel fromStore() {
     return new LoadingPageViewModel(state.settingsState.language,
-        new LoadingPageState.create(state.isAppLoaded));
+        new LoadingPageState.create(state.isAppLoaded, state.authState));
   }
 }
 
@@ -56,15 +61,18 @@ abstract class LoadingPageState
     implements Built<LoadingPageState, LoadingPageStateBuilder> {
   bool get isAppLoaded;
 
+  AuthState get authState;
+
   LoadingPageState._();
 
   factory LoadingPageState([void Function(LoadingPageStateBuilder) updates]) {
     return new _$LoadingPageState(updates);
   }
 
-  factory LoadingPageState.create(bool isAppLoaded) {
+  factory LoadingPageState.create(bool isAppLoaded, AuthState authState) {
     return new LoadingPageState((b) {
       b.isAppLoaded = isAppLoaded;
+      b.authState.replace(authState);
     });
   }
 }

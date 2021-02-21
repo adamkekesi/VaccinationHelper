@@ -43,7 +43,7 @@ class RestClient {
     Response httpResponse;
 
     try {
-      var serializedBody = jsonEncode(body ?? "");
+      var serializedBody = body == null ? null : jsonEncode(body);
       httpResponse = await http.post(uri,
           headers: headers,
           encoding: Encoding.getByName("utf-8"),
@@ -68,7 +68,8 @@ class RestClient {
     Response httpResponse;
 
     try {
-      var serializedBody = jsonEncode(body ?? "");
+      var serializedBody = body == null ? null : jsonEncode(body);
+
       httpResponse = await http.put(uri,
           headers: headers,
           encoding: Encoding.getByName("utf-8"),

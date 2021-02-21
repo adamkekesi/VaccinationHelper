@@ -69,8 +69,8 @@ export class AuthController {
         "profilePicture-empty",
       ]);
     } */
-    const user = await this.authService.registerPatient(registerDto, file);
-    return new Response({ data: user });
+    const result = await this.authService.registerPatient(registerDto, file);
+    return new LoginResponse(result.user, result.jwt);
   }
 
   @Post("/register-doctor")
@@ -93,7 +93,7 @@ export class AuthController {
         },
       });
     }
-    const user = await this.authService.registerDoctor(registerDto, file);
-    return new Response({ data: user });
+    const result = await this.authService.registerDoctor(registerDto, file);
+    return new LoginResponse(result.user, result.jwt);
   }
 }

@@ -3,71 +3,43 @@ import 'package:vaccination_helper/core/auth/dtos/patient_register_dto.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/helpers/exceptions/base_exception.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:vaccination_helper/helpers/types.dart';
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
-
-
-typedef void SendFunction();
-
 class UserSignUp extends StatefulWidget {
-  // are we currently waiting for the server's response?
-  final bool isLoading;
-  // should we show a success message?
-  final bool isSuccessful;
-  // if the registration failed, this will be the error
-  final BaseException exception;
-  // function to send the registration to the server
-  final SendFunction onSent;
-
-  final Translator translator;
+  final BuildContextFunction onSent;
 
   final PatientRegisterDto payload;
 
-  UserSignUp(
-      {this.isLoading,
-      this.isSuccessful,
-      this.exception,
-      this.onSent,
-      this.translator,
-      this.payload});
+  UserSignUp({this.onSent, this.payload});
 
   @override
-  _UserSignUpState createState() => _UserSignUpState(isLoading, isSuccessful, exception, onSent, translator, payload);
+  _UserSignUpState createState() => _UserSignUpState(onSent, payload);
 }
 
 class _UserSignUpState extends State<UserSignUp>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  // are we currently waiting for the server's response?
-  final bool isLoading;
-  // should we show a success message?
-  final bool isSuccessful;
-  // if the registration failed, this will be the error
-  final BaseException exception;
-  // function to send the registration to the server
-  final SendFunction onSent;
 
-  final Translator translator;
+  // function to send the registration to the server
+  final BuildContextFunction onSent;
 
   final PatientRegisterDto payload;
 
   CalendarController _calendarController;
   bool secureText = true;
-  _UserSignUpState(this.isLoading, this.isSuccessful, this.exception, this.onSent, this.translator, this.payload){}
+  _UserSignUpState(this.onSent, this.payload) {}
   double _scale;
   @override
   void dispose() {
     _calendarController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
-
     _calendarController = CalendarController();
-
 
     _controller = AnimationController(
         vsync: this,
@@ -82,75 +54,60 @@ class _UserSignUpState extends State<UserSignUp>
   @override
   Widget build(BuildContext context) {
     _scale = 1 - _controller.value;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Páciens adatai',
-          style: TextStyle(fontFamily: 'Comfortaa'),
-        ),
-        centerTitle: true,
-        elevation: 10,
-        backgroundColor: Colors.cyan,
-      ),
-      body: ListView(
+    return Column(
+      children: [
+        Form(
+          key: _formKey,
+          child: Center(
+            child: Container(
+              width: 300,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 100.0),
+                    _buildNameField(), SizedBox(height: 20.0),
+                    _buildEmailField(), SizedBox(height: 20.0),
+                    _buildCityField(), SizedBox(height: 20.0),
+                    _buildZipcodeField(), SizedBox(height: 20.0),
+                    _buildAddressField(), SizedBox(height: 20.0),
+                    //_buildDateOfBirthField()
+                    TableCalendar(
+                      //locale: Locale("hu", "HU").toString(),
+                      calendarController: _calendarController,
+                    ),
+                    SizedBox(height: 20.0),
 
-        //mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child:
-                Center(
-
-                  child: Container(
-                    width: 300,
-                    child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      SizedBox(height: 100.0),
-              _buildNameField(),SizedBox(height: 20.0),
-                      _buildEmailField(),SizedBox(height: 20.0),
-              _buildCityField(),SizedBox(height: 20.0),
-              _buildZipcodeField(),SizedBox(height: 20.0),
-              _buildAddressField(),SizedBox(height: 20.0),
-                      //_buildDateOfBirthField()
-                      TableCalendar(
-                        //locale: Locale("hu", "HU").toString(),
-                        calendarController: _calendarController,
-
-                      )
-                      ,SizedBox(height: 20.0),
-
-                      _buildIdentityCardNumberField(),SizedBox(height: 20.0),
-                      _buildSsnField(),SizedBox(height: 20.0),
-                      _buildPhoneNumberField(),SizedBox(height: 20.0),
-                      _buildPasswordField(),SizedBox(height: 20.0),
-
-            ]),
-                  ),
-                ),
-          ),
-          SizedBox(height: 20.0),
-          Center(
-            child: GestureDetector(
-              onTapDown: _onTapDown,
-              onTapUp: _onTapUp,
-              child: Transform.scale(
-                scale: _scale,
-                child: _animatedButtonUi,
-              ),
+                    _buildIdentityCardNumberField(), SizedBox(height: 20.0),
+                    _buildSsnField(), SizedBox(height: 20.0),
+                    _buildPhoneNumberField(), SizedBox(height: 20.0),
+                    _buildPasswordField(), SizedBox(height: 20.0),
+                  ]),
             ),
-          )
-        ],
-      ),
+          ),
+        ),
+        SizedBox(height: 20.0),
+        Center(
+          child: GestureDetector(
+            onTapDown: _onTapDown,
+            onTapUp: _onTapUp,
+            child: Transform.scale(
+              scale: _scale,
+              child: _animatedButtonUi,
+            ),
+          ),
+        )
+      ],
     );
   }
+
   Widget _buildNameField() {
     return TextFormField(
       maxLength: 30,
       style: TextStyle(
-      color: Colors.black,
-      fontFamily: 'Comfortaa',
-      fontSize: 15,
-    ),
+        color: Colors.black,
+        fontFamily: 'Comfortaa',
+        fontSize: 15,
+      ),
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue),
@@ -159,19 +116,20 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.account_circle),
           hintText: "Név"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Name is required.';
         }
         return null;
       },
-      onSaved: (String value){payload.fullName = value;},
-
+      onSaved: (String value) {
+        payload.fullName = value;
+      },
     );
   }
 
@@ -192,19 +150,20 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.format_list_numbered_sharp),
           hintText: "Lakcím"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Lakcím required';
         }
         return null;
       },
-      onSaved: (String value){payload.address.address = value;},
-
+      onSaved: (String value) {
+        payload.address.address = value;
+      },
     );
   }
 
@@ -225,19 +184,20 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.format_list_numbered_sharp),
           hintText: "ZIP code"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'ZIP code required';
         }
         return null;
       },
-      onSaved: (String value){payload.address.zipCode = value;},
-
+      onSaved: (String value) {
+        payload.address.zipCode = value;
+      },
     );
   }
 
@@ -258,19 +218,20 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.location_city),
           hintText: "Város"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Város required';
         }
         return null;
       },
-      onSaved: (String value){payload.address.city = value;},
-
+      onSaved: (String value) {
+        payload.address.city = value;
+      },
     );
   }
 
@@ -291,19 +252,20 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.date_range),
           hintText: "Születési idő"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Születési idő required';
         }
         return null;
       },
-      onSaved: (String value){payload.dateOfBirth = DateTime.parse(value);},
-
+      onSaved: (String value) {
+        payload.dateOfBirth = DateTime.parse(value);
+      },
     );
   }
 
@@ -324,22 +286,25 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.email),
           hintText: "Email"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'Email is required.';
         }
-        if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
-            return 'Please enter a valid email address.';
+        if (!RegExp(
+                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+            .hasMatch(value)) {
+          return 'Please enter a valid email address.';
         }
         return null;
       },
-      onSaved: (String value){payload.email = value;},
-
+      onSaved: (String value) {
+        payload.email = value;
+      },
     );
   }
 
@@ -361,22 +326,23 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.confirmation_number_sharp),
           hintText: "Személyi szám"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'identitycard number is required.';
         }
-        if(!RegExp("[0-9]{6}[a-zA-Z]{2}").hasMatch(value)){
+        if (!RegExp("[0-9]{6}[a-zA-Z]{2}").hasMatch(value)) {
           return 'Please enter a valid identitycard number.';
         }
         return null;
       },
-      onSaved: (String value){payload.identityCardNumber = value;},
-
+      onSaved: (String value) {
+        payload.identityCardNumber = value;
+      },
     );
   }
 
@@ -397,22 +363,23 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.confirmation_num_rounded),
           hintText: "TAJ number"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'TAJ number required';
         }
-        if(!RegExp("[0-9]{9}").hasMatch(value)){
+        if (!RegExp("[0-9]{9}").hasMatch(value)) {
           return 'Please enter a valid ssn number.';
         }
         return null;
       },
-      onSaved: (String value){payload.ssn = value;},
-
+      onSaved: (String value) {
+        payload.ssn = value;
+      },
     );
   }
 
@@ -433,19 +400,20 @@ class _UserSignUpState extends State<UserSignUp>
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.phone_iphone),
           hintText: "phone number"),
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'phone number required';
         }
         return null;
       },
-      onSaved: (String value){payload.phoneNumber = value;},
-
+      onSaved: (String value) {
+        payload.phoneNumber = value;
+      },
     );
   }
 
@@ -458,22 +426,20 @@ class _UserSignUpState extends State<UserSignUp>
         fontFamily: 'Comfortaa',
         fontSize: 15,
       ),
-
-      decoration:
-      InputDecoration(enabledBorder: OutlineInputBorder(
+      decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue),
             borderRadius: BorderRadius.all(Radius.circular(100)),
           ),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
               borderRadius: BorderRadius.all(Radius.circular(100))),
-          border:  OutlineInputBorder(
+          border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.lock_open),
           suffixIcon: IconButton(
-            icon: Icon(
-                secureText ? Icons.remove_red_eye : Icons.security),
+            icon: Icon(secureText ? Icons.remove_red_eye : Icons.security),
             onPressed: () {
               setState(() {
                 secureText = !secureText;
@@ -482,21 +448,17 @@ class _UserSignUpState extends State<UserSignUp>
           ),
           hintText: "Password"),
       obscureText: secureText,
-
-      validator: (String value){
-        if(value.isEmpty){
+      validator: (String value) {
+        if (value.isEmpty) {
           return 'phone number required';
         }
         return null;
       },
-      onSaved: (String value){payload.password = value;},
-
+      onSaved: (String value) {
+        payload.password = value;
+      },
     );
   }
-
-
-
-
 
   Widget _textfieldUi({String hintText, IconData icon}) {
     return TextField(
@@ -529,9 +491,8 @@ class _UserSignUpState extends State<UserSignUp>
         ),
       ));
   void _onTapDown(TapDownDetails details) {
-
     _controller.forward();
-    if(!_formKey.currentState.validate()){
+    if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
@@ -539,6 +500,7 @@ class _UserSignUpState extends State<UserSignUp>
     print(payload.fullName);
     payload.dateOfBirth = _calendarController.selectedDay;
     print(payload.dateOfBirth);
+    onSent(context);
   }
 
   void _onTapUp(TapUpDetails details) {

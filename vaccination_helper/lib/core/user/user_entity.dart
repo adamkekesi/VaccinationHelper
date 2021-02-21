@@ -15,7 +15,9 @@ class UserEntity {
 
   String username;
 
-  bool verified;
+  String fullName;
+
+  String phoneNumber;
 
   List<RoleEntity> roles;
 

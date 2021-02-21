@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_helper/core/user/user_entity.dart';
+import 'package:vaccination_helper/helpers/types.dart';
 import 'package:vaccination_helper/pages/login_singup/login_singup.dart';
 
 class MainDrawer extends StatelessWidget {
+  final UserEntity user;
+
+  final BuildContextFunction logout;
+
+  MainDrawer({this.user, this.logout});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -27,14 +35,14 @@ class MainDrawer extends StatelessWidget {
                             image: AssetImage('assets/user.png'))),
                   ),
                   Text(
-                    'Anonymous',
+                    user.fullName,
                     style: TextStyle(
                         fontFamily: 'Comfortaa',
                         fontSize: 22,
                         color: Colors.white),
                   ),
                   Text(
-                    'Anonymous@example.com',
+                    user.email,
                     style: TextStyle(
                         fontFamily: 'Comfortaa',
                         fontSize: 12,
@@ -74,7 +82,7 @@ class MainDrawer extends StatelessWidget {
               'Log Out',
               style: TextStyle(fontFamily: 'Comfortaa', fontSize: 18),
             ),
-            onTap: null,
+            onTap: () => logout(context),
           ),
         ],
       ),

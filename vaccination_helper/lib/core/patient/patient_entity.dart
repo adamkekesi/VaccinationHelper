@@ -10,7 +10,7 @@ part 'patient_entity.g.dart';
 
 @JsonSerializable()
 class PatientEntity extends UserEntity {
-  Address getaddress;
+  Address address;
   DateTime dateOfBirth;
   String identityCardNumber;
   String ssn;

@@ -107,7 +107,15 @@ export class AuthService extends BaseService {
       await this.storageService.saveFiles([profilePicture], patient);
     }
 
-    return this.prepareEntity(patient);
+    const authTokenRepository = await this.dbService.getRepository(
+      AuthTokenEntity
+    );
+    const token = await authTokenRepository.save(new AuthTokenEntity(patient));
+
+    return {
+      user: await this.prepareEntity(patient),
+      jwt: await this.jwtService.createJwt(token),
+    };
   }
 
   public async registerDoctor(
@@ -153,7 +161,15 @@ export class AuthService extends BaseService {
       await this.storageService.saveFiles([profilePicture], doctor);
     }
 
-    return this.prepareEntity(doctor);
+    const authTokenRepository = await this.dbService.getRepository(
+      AuthTokenEntity
+    );
+    const token = await authTokenRepository.save(new AuthTokenEntity(doctor));
+
+    return {
+      user: await this.prepareEntity(doctor),
+      jwt: await this.jwtService.createJwt(token),
+    };
   }
 
   private async prepareEntity(entity: UserEntity) {

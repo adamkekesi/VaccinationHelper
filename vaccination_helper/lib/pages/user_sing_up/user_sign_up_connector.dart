@@ -7,6 +7,9 @@ import 'package:vaccination_helper/core/redux/app_state.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:vaccination_helper/core/translation/translator.dart';
+import 'package:vaccination_helper/helpers/widgets/error_feedback.dart';
+import 'package:vaccination_helper/pages/user_home/user_home.dart';
+import 'package:vaccination_helper/pages/user_home/user_home_connector.dart';
 import 'package:vaccination_helper/pages/user_sing_up/user_sign_up.dart';
 
 part 'user_sign_up_connector.g.dart';
@@ -17,13 +20,33 @@ class UserSignUpConnector extends StatelessWidget {
     return StoreConnector<AppState, UserSignUpViewModel>(
         vm: () => new UserSignUpVmFactory(this),
         builder: (BuildContext context, UserSignUpViewModel vm) {
-          return UserSignUp(
-            isLoading: vm.state.patientState.isLoading,
-            isSuccessful: vm.state.patientState.isSuccessful,
-            exception: vm.state.patientState.exception,
-            onSent: () => vm.sendRequest(vm.state.patientState.payload),
-            translator: vm.translator,
-            payload: vm.state.patientState.payload,
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                'Register patient',
+                style: TextStyle(fontFamily: 'Comfortaa'),
+              ),
+              centerTitle: true,
+              elevation: 10,
+              backgroundColor: Colors.cyan,
+            ),
+            body: SingleChildScrollView(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
+                children: <Widget>[
+                  if (vm.state.patientState.exception != null)
+                    ErrorFeedback(
+                      msg: vm.state.patientState.exception.type,
+                    ),
+                  UserSignUp(
+                    onSent: (context) =>
+                        vm.sendRequest(vm.state.patientState.payload, context),
+                    payload: vm.state.patientState.payload,
+                  )
+                ],
+              ),
+            ),
           );
         });
   }
@@ -38,8 +61,12 @@ class UserSignUpVmFactory extends VmFactory<AppState, UserSignUpConnector> {
         new UserSignUpState.create(state.patientRegisterState), sendRequest);
   }
 
-  void sendRequest(PatientRegisterDto payload) async {
-    await dispatchFuture(new RegisterPatientAction(payload));
+  void sendRequest(PatientRegisterDto payload, BuildContext context) async {
+    try {
+      await dispatchFuture(new RegisterPatientAction(payload));
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (c) => UserHomeConnector()));
+    } catch (e) {}
   }
 }
 
@@ -73,9 +100,9 @@ abstract class UserSignUpState
   }
 }
 
-const Map<String, Map<String, String>> translationOverrides = {"key":{
-  "en":"English version",
-  "hu":"magyar változat"
-}};
+const Map<String, Map<String, String>> translationOverrides = {
+  "key": {"en": "English version", "hu": "magyar változat"}
+};
 
-typedef void PayloadSendFunction(PatientRegisterDto payload);
+typedef void PayloadSendFunction(
+    PatientRegisterDto payload, BuildContext context);

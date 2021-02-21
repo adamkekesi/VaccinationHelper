@@ -3,10 +3,10 @@ import 'package:vaccination_helper/core/translation/translator.dart';
 import 'package:vaccination_helper/pages/doc/doc.dart';
 import 'package:vaccination_helper/pages/doctor_search/doctor_search.dart';
 import 'package:vaccination_helper/pages/user_home/main.drawer.dart';
+import 'package:vaccination_helper/pages/user_home/main_drawer_connector.dart';
 
 class UserHome extends StatefulWidget {
-  UserHome({this.translator});
-  Translator translator;
+  UserHome();
 
   @override
   _LoginState createState() => _LoginState();
@@ -28,7 +28,7 @@ class _LoginState extends State<UserHome> {
         elevation: 10,
         backgroundColor: Colors.cyan,
       ),
-      drawer: Drawer(child: MainDrawer()),
+      drawer: Drawer(child: MainDrawerConnector()),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -46,7 +46,7 @@ class _LoginState extends State<UserHome> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Text(
-                  "Search for your Doctor",
+                  "Your Home Doctor",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Comfortaa',

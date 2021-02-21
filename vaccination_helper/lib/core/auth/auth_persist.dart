@@ -35,4 +35,11 @@ class AuthPersist {
       await _prefs.setString("userId", userId);
     }
   }
+
+  static Future<void> clear() async {
+    await _prefs.remove(
+      "userId",
+    );
+    await _prefs.remove("jwt");
+  }
 }
