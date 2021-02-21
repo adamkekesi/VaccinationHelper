@@ -53,6 +53,14 @@ class MainDrawer extends StatelessWidget {
             onTap: null,
           ),
           ListTile(
+            leading: Icon(Icons.qr_code),
+            title: Text(
+              'Your QR code',
+              style: TextStyle(fontFamily: 'Comfortaa', fontSize: 18),
+            ),
+            onTap: null,
+          ),
+          ListTile(
             leading: Icon(Icons.settings),
             title: Text(
               'Settings',

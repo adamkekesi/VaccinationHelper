@@ -42,7 +42,7 @@ class _DocState extends State<Doc> {
             children: <Widget>[
               SwitchListTile(
                 title: Text(
-                  'Van tartós, krónikus betegsége?',
+                  'Do you have any lasting, chronic illness?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -55,7 +55,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Szed valamilyen gyógyszer rendszeresen?',
+                  'Do you take some type of medicine regularly?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -81,7 +81,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Volt már rosszul vizsgálat vagy vérvétel során?',
+                  'Have you ever been ill after a medical examination or after a blood sample has been taken from you?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -94,7 +94,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Védőoltás beadását után volt-e allergiás/heves reakciója?',
+                  'Have you ever had an allergic reaction to a vaccination?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -107,7 +107,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Volt-e valamilyen akut betegsége az elmúlt 4 hétben?',
+                  'Have you had an acute illness in the past 4 weeks?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -120,7 +120,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Volt-e lázas beteg az elmúlt 2 hétben?',
+                  'Have you had a fever in the past 2 weeks?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -133,7 +133,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Szenved-e olyan autoimmun betegségben, melynek épp aktív fázisa zajlik?',
+                  'Do you suffer from an autoimmune disease that is currently in it is active phase?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -146,7 +146,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Az elmúlt 3 hónapban kapott-e az immunrendszerét gyengítő kezelést, ill. sugárkezelést?',
+                  'Did you receive a treatment that weakens your immune system or have you gotten radiation treatment in the past 3 months?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -159,7 +159,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Volt-e valaha görcsrohama, idegrendszeri problémája, bénulása?',
+                  'Did you ever have a seizure, a problem with your nervous system or paralysis of any kind?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -172,7 +172,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Szenved-e vérképző szervi betegségben, fokozott vérzékenységben?',
+                  'Do you suffer from a problem with a hematopoietic organ or haemophilia?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -185,7 +185,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Kapott-e védőoltást az elmúlt 2 hétben?',
+                  'Did you receive a vaccination in the past 2 weeks?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -198,7 +198,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Jelenleg van-e bármilyen panasza?',
+                  'Do you have any health complaints as of now?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -211,7 +211,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Jelenleg várandós-e?',
+                  'Are you currently pregnant?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -224,7 +224,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Tervez-e várandósságot 2 hónapon belül?',
+                  'Are you planning a pregnancy in the upcoming 2 months?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
@@ -237,7 +237,7 @@ class _DocState extends State<Doc> {
               ),
               SwitchListTile(
                 title: Text(
-                  'Szoptat-e?',
+                  'Are you currently breastfeeding?',
                   style: TextStyle(
                     fontFamily: 'Comfortaa',
                   ),
