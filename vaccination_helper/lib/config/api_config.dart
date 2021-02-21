@@ -1,1 +1,1 @@
-const String apiUrl = "localhost:3000";
+const String apiUrl = "vaccination-helper.herokuapp.com";

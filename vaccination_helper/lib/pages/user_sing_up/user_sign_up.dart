@@ -120,7 +120,7 @@ class _UserSignUpState extends State<UserSignUp>
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.account_circle),
-          hintText: "Név"),
+          hintText: "Full name"),
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is required.';
@@ -154,10 +154,10 @@ class _UserSignUpState extends State<UserSignUp>
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.format_list_numbered_sharp),
-          hintText: "Lakcím"),
+          hintText: "Address"),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Lakcím required';
+          return 'Address required';
         }
         return null;
       },
@@ -222,10 +222,10 @@ class _UserSignUpState extends State<UserSignUp>
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.location_city),
-          hintText: "Város"),
+          hintText: "City"),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Város required';
+          return 'City required';
         }
         return null;
       },
@@ -256,10 +256,10 @@ class _UserSignUpState extends State<UserSignUp>
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.date_range),
-          hintText: "Születési idő"),
+          hintText: "Date of birth"),
       validator: (String value) {
         if (value.isEmpty) {
-          return 'Születési idő required';
+          return 'Date of birth required';
         }
         return null;
       },
@@ -330,7 +330,7 @@ class _UserSignUpState extends State<UserSignUp>
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(100))),
           prefixIcon: Icon(Icons.confirmation_number_sharp),
-          hintText: "Személyi szám"),
+          hintText: "Identitycard"),
       validator: (String value) {
         if (value.isEmpty) {
           return 'identitycard number is required.';
@@ -482,7 +482,7 @@ class _UserSignUpState extends State<UserSignUp>
           borderRadius: BorderRadius.circular(100.0), color: Colors.cyan),
       child: Center(
         child: Text(
-          "Küldés",
+          "Send",
           style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

@@ -17,7 +17,7 @@ class RestClient {
 
     var serializedQuery = _serializeQuery(query);
 
-    var uri = Uri.http(apiUrl, "api/" + path, serializedQuery);
+    var uri = Uri.https(apiUrl, "api/" + path, serializedQuery);
 
     Response httpResponse;
 
@@ -38,7 +38,7 @@ class RestClient {
 
     var serializedQuery = _serializeQuery(query);
 
-    var uri = Uri.http(apiUrl, "api/" + path, serializedQuery);
+    var uri = Uri.https(apiUrl, "api/" + path, serializedQuery);
 
     Response httpResponse;
 
@@ -63,7 +63,7 @@ class RestClient {
 
     var serializedQuery = _serializeQuery(query);
 
-    var uri = Uri.http(apiUrl, "api/" + path, serializedQuery);
+    var uri = Uri.https(apiUrl, "api/" + path, serializedQuery);
 
     Response httpResponse;
 
@@ -88,7 +88,7 @@ class RestClient {
 
     var serializedQuery = _serializeQuery(query);
 
-    var uri = Uri.http(apiUrl, "api/" + path, serializedQuery);
+    var uri = Uri.https(apiUrl, "api/" + path, serializedQuery);
 
     Response httpResponse;
 
