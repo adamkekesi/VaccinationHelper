@@ -1,4 +1,4 @@
-import { IsNotEmpty, isNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 import { JsonProperty, Serializable } from "typescript-json-serializer";
 
 @Serializable()
