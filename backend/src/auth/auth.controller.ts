@@ -64,11 +64,11 @@ export class AuthController {
     @Body() registerDto: PatientRegisterDto,
     @UploadedFile() file: Express.Multer.File
   ) {
-    if (!file) {
+    /* if (!file) {
       throw InvalidFields.fromOneInvalidField("profilePicture", [
         "profilePicture-empty",
       ]);
-    }
+    } */
     const user = await this.authService.registerPatient(registerDto, file);
     return new Response({ data: user });
   }
@@ -80,11 +80,11 @@ export class AuthController {
     @Body() registerDto: DoctorRegisterDto,
     @UploadedFile() file: Express.Multer.File
   ) {
-    if (!file) {
+    /* if (!file) {
       throw InvalidFields.fromOneInvalidField("profilePicture", [
         "profilePicture-empty",
       ]);
-    }
+    } */
     if (!registerDto.isHomeDoctor && !registerDto.isVaccinatorDoctor) {
       throw InvalidFields.fromInvalidFields({
         isHomeDoctor: { errorCodes: ["isHomeDoctor-no-doctor-type-selected"] },

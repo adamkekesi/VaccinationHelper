@@ -1,7 +1,18 @@
+import ConsentFormModel from "src/patient/model/consent-form.model";
+import DoctorPatientConnectionEntity from "src/doctor/doctor-patient-connection.entity";
+import DoctorEntity from "src/doctor/doctor.entity";
 import UserEntity from "src/user/user.entity";
-import { ChildEntity, Column, Entity } from "typeorm";
+import {
+  ChildEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from "typeorm";
 import { JsonProperty, Serializable } from "typescript-json-serializer";
-import AddressModel from "./address.model";
+import AddressModel from "./model/address.model";
+import VaccinationEntity from "src/vaccination/vaccination.entity";
 
 @ChildEntity()
 @Serializable()
@@ -21,6 +32,18 @@ export default class PatientEntity extends UserEntity {
   @JsonProperty()
   @Column()
   public ssn: string;
+
+  @JsonProperty()
+  @Column(() => ConsentFormModel)
+  public consentForm: ConsentFormModel;
+
+  @JsonProperty()
+  @OneToOne(() => DoctorPatientConnectionEntity, (conn) => conn.patient)
+  public doctorPatientConnection: DoctorPatientConnectionEntity;
+
+  @JsonProperty()
+  @OneToMany(() => VaccinationEntity, (vaccination) => vaccination.patient)
+  public vaccinationsInProgress: VaccinationEntity[];
 
   constructor(
     email: string,

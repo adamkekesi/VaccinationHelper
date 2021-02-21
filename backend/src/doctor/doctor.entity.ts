@@ -1,6 +1,9 @@
+import PatientEntity from "src/patient/patient.entity";
 import UserEntity from "src/user/user.entity";
-import { ChildEntity, Column, Entity } from "typeorm";
+import VaccinationEntity from "src/vaccination/vaccination.entity";
+import { ChildEntity, Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { JsonProperty, Serializable } from "typescript-json-serializer";
+import DoctorPatientConnectionEntity from "./doctor-patient-connection.entity";
 
 @ChildEntity()
 @Serializable()
@@ -16,6 +19,16 @@ export default class DoctorEntity extends UserEntity {
   @JsonProperty()
   @Column()
   public isVaccinatorDoctor: boolean;
+
+  @JsonProperty()
+  @OneToMany(() => DoctorPatientConnectionEntity, (conn) => conn.doctor, {
+    eager: true,
+  })
+  public doctorPatientConnections: DoctorPatientConnectionEntity[];
+
+  @JsonProperty()
+  @OneToMany(() => VaccinationEntity, (vaccination) => vaccination.vaccinator)
+  public coordinatedVaccinations: VaccinationEntity[];
 
   constructor(
     email: string,

@@ -13,7 +13,7 @@ import JwtService from "src/jwt/jwt.service";
 import InvalidCredentials from "./exception/invalid-credentials.exception";
 import PatientRegisterDto from "./dto/patient-register.dto";
 import PatientEntity from "src/patient/patient.entity";
-import AddressModel from "src/patient/address.model";
+import AddressModel from "src/patient/model/address.model";
 import DoctorEntity from "src/doctor/doctor.entity";
 import DoctorRegisterDto from "./dto/doctor-register.dto";
 import { StorageService } from "src/storage/storage.service";
@@ -34,7 +34,7 @@ export class AuthService extends BaseService {
     const authTokenRepository = await this.dbService.getRepository(
       AuthTokenEntity
     );
-    const user = await userRepository.findOne({
+    var user = await userRepository.findOne({
       where: { email: credentials.email },
     });
     if (
@@ -44,6 +44,7 @@ export class AuthService extends BaseService {
       throw new InvalidCredentials();
     }
     const token = await authTokenRepository.save(new AuthTokenEntity(user));
+
     return {
       user: await this.prepareEntity(user),
       jwt: await this.jwtService.createJwt(token),
@@ -129,16 +130,14 @@ export class AuthService extends BaseService {
       raw: false,
     });
 
-    const doctor = await doctorRepository.save(
-      new DoctorEntity(
-        registerDto.email,
-        registerDto.fullName,
-        registerDto.phoneNumber,
-        hashedPassword,
-        registerDto.city,
-        registerDto.isHomeDoctor,
-        registerDto.isVaccinatorDoctor
-      )
+    const doctor = new DoctorEntity(
+      registerDto.email,
+      registerDto.fullName,
+      registerDto.phoneNumber,
+      hashedPassword,
+      registerDto.city,
+      registerDto.isHomeDoctor,
+      registerDto.isVaccinatorDoctor
     );
 
     if (doctor.isHomeDoctor) {
@@ -149,7 +148,10 @@ export class AuthService extends BaseService {
       this.roleHelper.giveVaccinatorDoctorRole(doctor);
     }
 
-    await this.storageService.saveFiles([profilePicture], doctor);
+    await doctorRepository.save(doctor);
+    if (profilePicture) {
+      await this.storageService.saveFiles([profilePicture], doctor);
+    }
 
     return this.prepareEntity(doctor);
   }

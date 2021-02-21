@@ -9,6 +9,12 @@ import { storageConfig } from "./storageConfig";
 import { fork } from "child_process";
 import Identifiable from "src/shared/Identifiable";
 import FileNotExists from "./exceptions/file-not-exists.exception";
+import { DatabaseService } from "src/database/database.service";
+import UserEntity from "src/user/user.entity";
+import UserNotExists from "src/shared/exceptions/user-not-exists.exception";
+import PatientEntity from "src/patient/patient.entity";
+import PermissionDenied from "src/shared/exceptions/permission-denied.exception";
+import DoctorEntity from "src/doctor/doctor.entity";
 
 const rimraf = require("rimraf");
 const sanitize = require("sanitize-filename");
@@ -20,6 +26,43 @@ const readdirAsync = promisify(readdir);
 
 @Injectable()
 export class StorageService {
+  constructor(private dbService: DatabaseService) {}
+
+  public async getProfilePicture(userId: string, requester: UserEntity) {
+    const userRepository = await this.dbService.getRepository(UserEntity);
+    const user = await userRepository.findOne(userId);
+    if (!user) {
+      throw new UserNotExists();
+    }
+    if (user.id === requester.id) {
+      return this.getFile(user, "profilePicture");
+    }
+    if (
+      user instanceof PatientEntity &&
+      !(
+        user.doctorPatientConnection?.id === requester.id &&
+        user.vaccinationsInProgress.some(
+          (v) => v.vaccinator?.id === requester.id
+        )
+      )
+    ) {
+      throw new PermissionDenied();
+    }
+    if (user instanceof DoctorEntity) {
+      if (!user.isHomeDoctor) {
+        const isPatient = user.coordinatedVaccinations.some(
+          (v) => v.patient.id === requester.id
+        );
+        const isHomeDoctor = requester.roleNames.includes("homeDoctor");
+        if (!(isPatient || isHomeDoctor)) {
+          throw new PermissionDenied();
+        }
+      }
+    }
+
+    return this.getFile(user, "profilePicture");
+  }
+
   public async saveFiles(
     files: Express.Multer.File[],
     entity: Identifiable,

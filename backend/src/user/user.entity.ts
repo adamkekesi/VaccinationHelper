@@ -1,5 +1,4 @@
 import AuthTokenEntity from "src/auth/entity/auth-token.entity";
-import TokenEntity from "src/auth/entity/token.entity";
 import RoleModel from "src/role/models/role.model";
 import RoleHelper from "src/role/role.helper";
 import { roles } from "src/role/roles";
@@ -50,9 +49,6 @@ export default class UserEntity {
 
   @OneToMany(() => AuthTokenEntity, (token) => token.user)
   public authTokens: Promise<AuthTokenEntity[]>;
-
-  @OneToMany(() => TokenEntity, (token) => token.user)
-  public tokens: Promise<TokenEntity[]>;
 
   @JsonProperty()
   public type: "PatientEntity" | "DoctorEntity";

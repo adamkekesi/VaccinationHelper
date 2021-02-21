@@ -1,8 +1,9 @@
 import AuthTokenEntity from "src/auth/entity/auth-token.entity";
-import TokenEntity from "src/auth/entity/token.entity";
+import DoctorPatientConnectionEntity from "src/doctor/doctor-patient-connection.entity";
 import DoctorEntity from "src/doctor/doctor.entity";
 import PatientEntity from "src/patient/patient.entity";
 import UserEntity from "src/user/user.entity";
+import VaccinationEntity from "src/vaccination/vaccination.entity";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 export const dbConfig: PostgresConnectionOptions = {
@@ -12,7 +13,8 @@ export const dbConfig: PostgresConnectionOptions = {
     DoctorEntity,
     PatientEntity,
     AuthTokenEntity,
-    TokenEntity,
+    DoctorPatientConnectionEntity,
+    VaccinationEntity,
   ],
   synchronize: true,
   url: process.env.POSTGRES_CONNECTION_STRING,

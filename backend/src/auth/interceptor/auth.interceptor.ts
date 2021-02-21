@@ -54,7 +54,9 @@ export class AuthInterceptor implements NestInterceptor {
       const authTokenRepository = await this.dbService.getRepository(
         AuthTokenEntity
       );
-      const authToken = await authTokenRepository.findOne(tokenId);
+      const authToken = await authTokenRepository.findOne(tokenId, {
+        relations: ["user"],
+      });
       if (!authToken) {
         throw new Unauthorized();
       }

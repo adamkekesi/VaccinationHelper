@@ -19,6 +19,7 @@ import { DatabaseService } from "./database/database.service";
 import { PatientModule } from "./patient/patient.module";
 import { DoctorModule } from "./doctor/doctor.module";
 import { StorageModule } from "./storage/storage.module";
+import { VaccinationModule } from "./vaccination/vaccination.module";
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { StorageModule } from "./storage/storage.module";
     PatientModule,
     DoctorModule,
     StorageModule,
+    VaccinationModule,
   ],
   controllers: [AppController],
   providers: [
